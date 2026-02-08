@@ -249,13 +249,28 @@ body:hover .aurora {
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 400px;
+  width: 700px;
+  height: 500px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(201, 148, 74, 0.06) 0%, rgba(201, 148, 74, 0.02) 40%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(201, 148, 74, 0.08) 0%, rgba(201, 148, 74, 0.03) 35%, transparent 65%);
   z-index: 1;
   pointer-events: none;
-  filter: blur(40px);
+  filter: blur(50px);
+  animation: glowPulse 8s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
 }
 
 .hero-img-wrap {
@@ -271,6 +286,21 @@ body:hover .aurora {
   object-position: center 38%;
   transform: scale(1.18);
   filter: brightness(0.42) saturate(0.8);
+  animation: saturnDrift 120s linear infinite;
+}
+
+@keyframes saturnDrift {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.02) rotate(1.5deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 .hero-overlay {
@@ -318,6 +348,8 @@ body:hover .aurora {
 .h1-line {
   display: block;
   overflow: hidden;
+  padding: 0 0.15em;
+  margin: 0 -0.15em;
 }
 
 .h1-word {
@@ -366,7 +398,6 @@ body:hover .aurora {
   align-items: center;
   border-radius: 100px;
   text-decoration: none;
-  overflow: hidden;
   padding: 1.5px;
   cursor: pointer;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
