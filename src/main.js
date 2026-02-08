@@ -64,12 +64,12 @@ function initHero() {
         stagger: 0.12,
     }, '-=0.5')
 
-    // 6. Bottom bar
-    tl.to(['.hf-left', '.hf-center', '.hf-right'], {
+    // 6. Bottom bar — clean, as one unit
+    tl.to('.hero-footer', {
         opacity: 1,
         y: 0,
-        duration: 0.7,
-        stagger: 0.1,
+        duration: 0.8,
+        ease: 'power2.out',
     }, '-=0.4')
 }
 
