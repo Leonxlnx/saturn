@@ -167,10 +167,11 @@ function initHero() {
     }, '<')
 
     // 2. Nav
-    tl.fromTo('#nav',
-        { y: -10 },
-        { opacity: 1, y: 0, duration: 0.7 },
-        '-=2.2')
+    tl.to('#nav', {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+    }, '-=2.2')
 
     // 3. Eyebrow
     tl.to('.hero-eyebrow', {
@@ -281,6 +282,21 @@ function initFeatures() {
 }
 
 // ============================================
+// NAV SCROLL
+// ============================================
+function initNavScroll() {
+    const nav = document.getElementById('nav')
+    if (!nav) return
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+            nav.classList.add('scrolled')
+        } else {
+            nav.classList.remove('scrolled')
+        }
+    }, { passive: true })
+}
+
+// ============================================
 // INIT
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -290,5 +306,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initHero()
     initParallax()
     initFeatures()
+    initNavScroll()
 })
 

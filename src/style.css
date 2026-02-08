@@ -80,146 +80,210 @@ body:hover .aurora {
 }
 
 /* ============================================
-   NAV — Floating Glass Pill
+   NAV — Orbital Strip
    ============================================ */
-.nav-pill {
+.nav {
   position: fixed;
-  top: 1.2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  padding: 0.4rem 0.5rem;
-  border-radius: 100px;
-  background: rgba(12, 12, 16, 0.55);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(242, 237, 228, 0.06);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  opacity: 0;
-  transition: box-shadow 0.4s ease, border-color 0.4s ease;
-}
-
-.nav-pill:hover {
-  border-color: rgba(242, 237, 228, 0.1);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-/* Logo */
-.np-logo {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  justify-content: space-between;
+  padding: 1.1rem 2.4rem;
+  opacity: 0;
+}
+
+/* Frosted bar — appears on scroll via JS, but always a subtle base */
+.nav::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 6, 8, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(242, 237, 228, 0.04);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.nav.scrolled::after {
+  opacity: 1;
+}
+
+/* --- Logo --- */
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   text-decoration: none;
-  padding: 0.35rem 0.6rem;
-  border-radius: 100px;
-  transition: background 0.3s ease;
-}
-
-.np-logo:hover {
-  background: rgba(242, 237, 228, 0.04);
-}
-
-.np-logo-text {
-  font-weight: 700;
-  font-size: 0.88rem;
-  color: var(--cream);
-  letter-spacing: -0.01em;
-}
-
-.logo-mark {
   position: relative;
-  width: 18px;
-  height: 18px;
 }
 
-.logo-dot {
+.nav-planet {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.nav-planet-core {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--ochre-soft), var(--ochre));
+  background: linear-gradient(135deg, #E8C67A, var(--ochre));
+  box-shadow: 0 0 8px rgba(201, 148, 74, 0.3);
 }
 
-.logo-orbit {
+.nav-planet-ring {
   position: absolute;
   inset: 0;
-  border: 1px solid var(--ochre);
+  border: 1.5px solid rgba(201, 148, 74, 0.4);
   border-radius: 50%;
-  transform: rotateX(60deg);
-  opacity: 0.45;
+  transform: rotateX(62deg) rotateZ(-15deg);
+  animation: navOrbitSpin 12s linear infinite;
 }
 
-/* Separator */
-.np-sep {
-  width: 1px;
-  height: 16px;
-  background: rgba(242, 237, 228, 0.08);
-  margin: 0 0.2rem;
-  flex-shrink: 0;
+.nav-planet-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 148, 74, 0.12), transparent 70%);
+  animation: navGlowPulse 4s ease-in-out infinite;
 }
 
-/* Links */
-.np-links {
+@keyframes navOrbitSpin {
+  to {
+    transform: rotateX(62deg) rotateZ(345deg);
+  }
+}
+
+@keyframes navGlowPulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+.nav-wordmark {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+}
+
+/* --- Center Links --- */
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 0.25rem;
 }
 
-.np-link {
-  font-size: 0.78rem;
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  color: rgba(242, 237, 228, 0.4);
+  color: rgba(242, 237, 228, 0.35);
   text-decoration: none;
-  padding: 0.4rem 0.7rem;
-  border-radius: 100px;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
   transition: color 0.3s ease, background 0.3s ease;
   position: relative;
 }
 
-.np-link:hover {
-  color: var(--cream);
-  background: rgba(242, 237, 228, 0.05);
+.nav-item-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(201, 148, 74, 0.2);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
 }
 
-/* CTA */
-.np-cta {
+.nav-item:hover {
+  color: var(--cream);
+  background: rgba(242, 237, 228, 0.03);
+}
+
+.nav-item:hover .nav-item-dot {
+  background: var(--ochre-soft);
+  box-shadow: 0 0 6px rgba(201, 148, 74, 0.4);
+  transform: scale(1.3);
+}
+
+/* --- CTA --- */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: rgba(212, 166, 94, 0.85);
+  gap: 0.5rem;
   text-decoration: none;
-  padding: 0.4rem 0.9rem;
+  padding: 0.5rem 1.15rem;
   border-radius: 100px;
-  border: 1px solid rgba(201, 148, 74, 0.15);
-  background: rgba(201, 148, 74, 0.05);
+  border: 1px solid rgba(201, 148, 74, 0.12);
+  background: rgba(201, 148, 74, 0.04);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.nav-cta-text {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(212, 166, 94, 0.75);
+  transition: color 0.3s ease;
+}
+
+.nav-cta-arrow {
+  display: flex;
+  align-items: center;
+  color: rgba(212, 166, 94, 0.5);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.np-cta:hover {
-  color: var(--bg);
-  background: linear-gradient(135deg, var(--ochre-soft), var(--ochre));
-  border-color: transparent;
-  box-shadow: 0 0 20px rgba(201, 148, 74, 0.2);
-  transform: translateY(-1px);
+.nav-cta:hover {
+  border-color: rgba(201, 148, 74, 0.35);
+  background: rgba(201, 148, 74, 0.08);
+  box-shadow: 0 0 24px rgba(201, 148, 74, 0.08);
 }
 
-.np-cta svg {
-  transition: transform 0.3s ease;
+.nav-cta:hover .nav-cta-text {
+  color: rgba(212, 166, 94, 1);
 }
 
-.np-cta:hover svg {
+.nav-cta:hover .nav-cta-arrow {
+  color: rgba(212, 166, 94, 0.9);
   transform: translateX(2px);
 }
 
