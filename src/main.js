@@ -2,51 +2,7 @@ import './style.css'
 import gsap from 'gsap'
 
 // ============================================
-// STARFIELD — subtle, clean
-// ============================================
-function initStarfield() {
-    const canvas = document.getElementById('starfield')
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    let stars = []
-
-    function resize() {
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
-    }
-
-    function create() {
-        stars = Array.from({ length: 140 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: Math.random() * 0.9 + 0.15,
-            o: Math.random() * 0.35 + 0.05,
-            phase: Math.random() * Math.PI * 2,
-            speed: Math.random() * 0.004 + 0.001,
-        }))
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        for (const s of stars) {
-            s.phase += s.speed
-            const a = s.o + Math.sin(s.phase) * 0.08
-            ctx.beginPath()
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
-            ctx.fillStyle = `rgba(242, 237, 228, ${Math.max(0, a)})`
-            ctx.fill()
-        }
-        requestAnimationFrame(draw)
-    }
-
-    resize()
-    create()
-    draw()
-    window.addEventListener('resize', () => { resize(); create() })
-}
-
-// ============================================
-// MAGNETIC BUTTONS
+// MAGNETIC
 // ============================================
 function initMagnetic() {
     document.querySelectorAll('[data-magnetic]').forEach(el => {
@@ -63,65 +19,114 @@ function initMagnetic() {
 }
 
 // ============================================
-// HERO ENTRANCE
+// HERO ENTRANCE — cinematic sequence
 // ============================================
 function initHero() {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.3 })
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-    // Nav
-    tl.from('#nav', { y: -15, opacity: 0, duration: 0.7 })
+    // Start with a moment of darkness, then...
 
-    // Background text
-    tl.to('.bg-text', { opacity: 1, duration: 1.8, ease: 'power2.inOut' }, '-=0.3')
+    // 1. Image fades in with slow zoom
+    tl.to('.hero-img', {
+        opacity: 1,
+        scale: 1,
+        duration: 2.2,
+        ease: 'power2.out',
+        delay: 0.3,
+    })
 
-    // Planet
-    gsap.set('#planet-container', { scale: 0.75 })
-    tl.to('#planet-container', { opacity: 1, scale: 1, duration: 1.4, ease: 'power2.out' }, '-=1.2')
+    // 2. Orbit lines fade in
+    tl.to('.orbit-lines', {
+        opacity: 1,
+        duration: 1.2,
+    }, '-=1.5')
 
-    // Title words
-    tl.to('[data-w]', {
+    // 3. Nav slides in
+    tl.from('#nav', {
+        y: -20,
+        opacity: 0,
+        duration: 0.7,
+    }, '-=1.0')
+
+    // 4. Giant words slam in one by one
+    tl.to('[data-v]', {
         opacity: 1,
         y: 0,
-        duration: 0.85,
-        stagger: 0.09,
+        duration: 1,
+        stagger: 0.15,
         ease: 'power4.out',
-    }, '-=0.7')
+    }, '-=0.6')
 
-    // Subline
-    tl.to('#subline', { opacity: 1, y: 0, duration: 0.65 }, '-=0.35')
+    // 5. Floating labels drift in
+    tl.to('.float-label', {
+        opacity: 0.85,
+        duration: 0.8,
+        stagger: 0.12,
+    }, '-=0.5')
 
-    // CTA
-    tl.to('#hero-cta', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+    // 6. Bottom bar
+    tl.to(['.hf-left', '.hf-center', '.hf-right'], {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.1,
+    }, '-=0.4')
 }
 
 // ============================================
-// SUBTLE PARALLAX — planet + bg text only
+// PARALLAX — image + text layers
 // ============================================
 function initParallax() {
-    const planet = document.getElementById('planet-container')
-    const bg = document.getElementById('bg-text')
+    const img = document.getElementById('hero-img')
+    const display = document.getElementById('hero-display')
+    const labels = document.querySelectorAll('.float-label')
+    const orbits = document.getElementById('orbit-lines')
 
     document.addEventListener('mousemove', e => {
         const x = (e.clientX / window.innerWidth - 0.5) * 2
         const y = (e.clientY / window.innerHeight - 0.5) * 2
 
-        if (planet) {
-            gsap.to(planet, {
-                x: x * 8,
-                y: y * 6,
+        // Image moves subtly opposite
+        if (img) {
+            gsap.to(img, {
+                x: x * -8,
+                y: y * -5,
+                duration: 2,
+                ease: 'power2.out',
+            })
+        }
+
+        // Display text moves WITH mouse slightly
+        if (display) {
+            gsap.to(display, {
+                x: x * 6,
+                y: y * 4,
                 duration: 1.8,
                 ease: 'power2.out',
             })
         }
 
-        if (bg) {
-            gsap.to(bg, {
-                x: x * -12,
-                y: y * -8,
-                duration: 2.2,
+        // Orbit lines
+        if (orbits) {
+            gsap.to(orbits, {
+                x: x * 10,
+                y: y * 8,
+                rotation: x * 2,
+                duration: 2.5,
                 ease: 'power2.out',
             })
         }
+
+        // Float labels each at different rates
+        labels.forEach((label, i) => {
+            const speed = 0.6 + i * 0.3
+            gsap.to(label, {
+                x: x * 12 * speed,
+                y: y * 8 * speed,
+                duration: 2,
+                ease: 'power2.out',
+            })
+        })
     })
 }
 
@@ -129,7 +134,6 @@ function initParallax() {
 // INIT
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
-    initStarfield()
     initMagnetic()
     initHero()
     initParallax()
