@@ -1,5 +1,5 @@
 /* ============================================
-   SATURN — PREMIUM / BIGGER / ORBIT RING
+   SATURN — PREMIUM / ORBIT RING / CREATIVE NAV
    ============================================ */
 
 *,
@@ -80,26 +80,30 @@ body:hover .aurora {
 }
 
 /* ============================================
-   NAV
+   NAV — Editorial, creative, not generic
    ============================================ */
 .nav {
   position: fixed;
-  top: 1.1rem;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   display: flex;
   align-items: center;
-  gap: 1.1rem;
-  padding: 0.65rem 0.7rem 0.65rem 1.4rem;
-  border-radius: 100px;
-  background: rgba(242, 237, 228, 0.035);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(242, 237, 228, 0.06);
-  width: fit-content;
+  justify-content: space-between;
+  padding: 0.9rem 2.2rem;
+  background: rgba(6, 6, 8, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(242, 237, 228, 0.04);
   opacity: 0;
-  transform: translateX(-50%) translateY(-20px);
+  transform: translateY(-10px);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .nav-logo {
@@ -111,7 +115,6 @@ body:hover .aurora {
   color: var(--cream);
   text-decoration: none;
   letter-spacing: -0.01em;
-  margin-right: 1rem;
 }
 
 .logo-mark {
@@ -140,43 +143,118 @@ body:hover .aurora {
   opacity: 0.45;
 }
 
+.nav-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(242, 237, 228, 0.1);
+}
+
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: rgba(242, 237, 228, 0.3);
+  letter-spacing: 0.02em;
+}
+
+.nav-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  position: relative;
+}
+
+.nav-status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1px solid var(--green);
+  opacity: 0.4;
+  animation: statusPulse 2s ease-out infinite;
+}
+
+@keyframes statusPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
 .nav-center {
   display: flex;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0;
 }
 
 .nav-link {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  color: var(--cream-dim);
+  color: rgba(242, 237, 228, 0.4);
   text-decoration: none;
-  padding: 0.45rem 0.85rem;
-  border-radius: 100px;
-  transition: all 0.25s ease;
+  padding: 0.45rem 0.9rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link span {
+  position: relative;
+}
+
+.nav-link span::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ochre-soft);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-link:hover {
   color: var(--cream);
-  background: rgba(242, 237, 228, 0.06);
+}
+
+.nav-link:hover span::after {
+  width: 100%;
 }
 
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  margin-left: 0.5rem;
+  gap: 0.8rem;
+}
+
+.nav-link-ghost {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(242, 237, 228, 0.35);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link-ghost:hover {
+  color: var(--cream);
 }
 
 .nav-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--bg);
   background: var(--cream);
-  padding: 0.5rem 1.15rem;
+  padding: 0.48rem 1.1rem;
   border-radius: 100px;
   text-decoration: none;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -232,7 +310,7 @@ body:hover .aurora {
 }
 
 /* ============================================
-   HERO CONTENT — even BIGGER
+   HERO CONTENT
    ============================================ */
 .hero-content {
   position: relative;
@@ -299,7 +377,7 @@ body:hover .aurora {
   font-weight: 500;
 }
 
-/* --- BUTTONS --- */
+/* --- BUTTONS — no magnetic, premium --- */
 .hero-btns {
   display: flex;
   align-items: center;
@@ -318,6 +396,7 @@ body:hover .aurora {
   overflow: hidden;
   padding: 1.5px;
   cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
 .btn-glow-bg {
@@ -400,7 +479,7 @@ body:hover .aurora {
 }
 
 /* ============================================
-   ORBIT RING + TAGS — 3D elliptical path
+   ORBIT TAGS — transparent, ambient
    ============================================ */
 .orbit-ring {
   position: absolute;
@@ -418,26 +497,25 @@ body:hover .aurora {
   border-radius: 100px;
   font-size: 0.63rem;
   font-weight: 500;
-  color: rgba(242, 237, 228, 0.55);
-  background: rgba(10, 10, 14, 0.35);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(242, 237, 228, 0.035);
+  color: rgba(242, 237, 228, 0.5);
+  background: rgba(10, 10, 14, 0.3);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(242, 237, 228, 0.03);
   opacity: 0;
   white-space: nowrap;
   pointer-events: none;
-  will-change: transform, opacity;
-  transition: opacity 0.3s ease;
+  will-change: transform, opacity, left, top;
 }
 
 .ot-label {
   font-weight: 600;
-  color: rgba(242, 237, 228, 0.6);
+  color: rgba(242, 237, 228, 0.55);
 }
 
 .ot-meta {
   font-weight: 400;
-  color: rgba(242, 237, 228, 0.3);
+  color: rgba(242, 237, 228, 0.25);
   font-size: 0.56rem;
   letter-spacing: 0.02em;
 }
@@ -453,12 +531,12 @@ body:hover .aurora {
 
 .ot-badge-done {
   background: rgba(92, 201, 177, 0.08);
-  color: rgba(92, 201, 177, 0.5);
+  color: rgba(92, 201, 177, 0.45);
 }
 
 .ot-badge-active {
   background: rgba(155, 138, 219, 0.08);
-  color: rgba(155, 138, 219, 0.5);
+  color: rgba(155, 138, 219, 0.45);
 }
 
 .ot-pulse {
@@ -468,7 +546,7 @@ body:hover .aurora {
   background: var(--c);
   position: relative;
   flex-shrink: 0;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .ot-pulse::after {
@@ -477,14 +555,14 @@ body:hover .aurora {
   inset: -2px;
   border-radius: 50%;
   border: 1px solid var(--c);
-  opacity: 0.3;
+  opacity: 0.25;
   animation: pulseDot 3s ease-out infinite;
 }
 
 @keyframes pulseDot {
   0% {
     transform: scale(1);
-    opacity: 0.3;
+    opacity: 0.25;
   }
 
   100% {
@@ -501,7 +579,15 @@ body:hover .aurora {
     display: none;
   }
 
-  .nav-right .nav-link {
+  .nav-link-ghost {
+    display: none;
+  }
+
+  .nav-status {
+    display: none;
+  }
+
+  .nav-divider {
     display: none;
   }
 
@@ -510,7 +596,7 @@ body:hover .aurora {
   }
 
   .nav {
-    padding: 0.55rem 0.55rem 0.55rem 1.1rem;
+    padding: 0.8rem 1.5rem;
   }
 }
 

@@ -37,7 +37,7 @@ function initAurora() {
 }
 
 // ============================================
-// MAGNETIC
+// MAGNETIC — nav only, subtle
 // ============================================
 function initMagnetic() {
     document.querySelectorAll('[data-magnetic]').forEach(el => {
@@ -45,35 +45,33 @@ function initMagnetic() {
             const rect = el.getBoundingClientRect()
             const x = e.clientX - rect.left - rect.width / 2
             const y = e.clientY - rect.top - rect.height / 2
-            gsap.to(el, { x: x * 0.18, y: y * 0.18, duration: 0.4, ease: 'power2.out' })
+            gsap.to(el, { x: x * 0.08, y: y * 0.08, duration: 0.4, ease: 'power2.out' })
         })
         el.addEventListener('mouseleave', () => {
-            gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' })
+            gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' })
         })
     })
 }
 
 // ============================================
-// ORBIT SYSTEM — tags on a 3D elliptical ring
+// ORBIT SYSTEM — 3D elliptical ring
+// Tags always behind hero content (z-index < 10)
+// Ellipse is wider + taller to CLEAR center text
 // ============================================
 const orbitState = {
     tags: [],
     count: 0,
     angleOffset: 0,
-    // Ellipse params — will be recalculated on resize
     cx: 0,
     cy: 0,
     rx: 0,
     ry: 0,
-    tilt: -10 * (Math.PI / 180), // slight tilt for 3D
-    speed: 0.0003, // radians per frame — very slow
+    tilt: -12 * (Math.PI / 180),
+    speed: 0.0008, // faster orbit
     active: false,
 }
 
 function initOrbitLayout() {
-    const hero = document.getElementById('hero')
-    if (!hero) return
-
     const tags = document.querySelectorAll('.orbit-tag')
     orbitState.tags = Array.from(tags)
     orbitState.count = tags.length
@@ -82,15 +80,14 @@ function initOrbitLayout() {
         const w = window.innerWidth
         const h = window.innerHeight
         orbitState.cx = w / 2
-        orbitState.cy = h * 0.47
-        orbitState.rx = Math.min(w * 0.42, 620) // horizontal radius clamped
-        orbitState.ry = Math.min(h * 0.2, 170)   // vertical radius — flat = 3D look
+        orbitState.cy = h * 0.46
+        // Wider + taller ellipse so tags orbit AROUND the text, not through it
+        orbitState.rx = Math.min(w * 0.46, 700)
+        orbitState.ry = Math.min(h * 0.32, 280)
     }
 
     updateEllipse()
     window.addEventListener('resize', updateEllipse)
-
-    // Position tags immediately (hidden)
     positionTags()
 }
 
@@ -101,26 +98,29 @@ function positionTags() {
         const baseAngle = (i / count) * Math.PI * 2
         const angle = baseAngle + angleOffset
 
-        // Ellipse position
         const ex = Math.cos(angle) * rx
         const ey = Math.sin(angle) * ry
 
-        // Apply tilt rotation
         const x = cx + ex * Math.cos(tilt) - ey * Math.sin(tilt)
         const y = cy + ex * Math.sin(tilt) + ey * Math.cos(tilt)
 
-        // 3D depth: items at "back" (top) are smaller + more transparent
-        const depth = Math.sin(angle) // -1 = back, 1 = front
-        const scale = 0.75 + (depth + 1) * 0.15 // 0.75 to 1.05
-        const opacity = 0.3 + (depth + 1) * 0.25 // 0.3 to 0.8
-        const zIndex = depth > 0 ? 8 : 3 // front = above content, back = behind
+        // 3D depth
+        const depth = Math.sin(angle) // -1 back, +1 front
+        const scale = 0.7 + (depth + 1) * 0.18 // 0.7 – 1.06
+        const opacity = 0.25 + (depth + 1) * 0.2 // 0.25 – 0.65
+        // ALWAYS behind hero-content (z-index 10)
+        const zIndex = depth > 0 ? 4 : 2
 
-        // Center the tag on the point
         const tagW = tag.offsetWidth / 2
         const tagH = tag.offsetHeight / 2
 
-        tag.style.left = `${x - tagW}px`
-        tag.style.top = `${y - tagH}px`
+        // Clamp to viewport with padding
+        const pad = 20
+        const clampX = Math.max(pad, Math.min(x - tagW, window.innerWidth - tag.offsetWidth - pad))
+        const clampY = Math.max(pad, Math.min(y - tagH, window.innerHeight - tag.offsetHeight - pad))
+
+        tag.style.left = `${clampX}px`
+        tag.style.top = `${clampY}px`
         tag.style.transform = `scale(${scale})`
         tag.style.opacity = opacity
         tag.style.zIndex = zIndex
@@ -145,7 +145,7 @@ function startOrbitAnimation() {
 function initHero() {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-    // 1. Saturn circular reveal
+    // 1. Saturn reveal
     tl.to('#hero-img-wrap', {
         clipPath: 'circle(90% at 50% 45%)',
         duration: 3,
@@ -201,22 +201,19 @@ function initHero() {
         duration: 0.65,
     }, '-=0.35')
 
-    // 7. Orbit tags fade in (they're already positioned by initOrbitLayout)
+    // 7. Orbit tags
     tl.call(() => {
-        // Tags fade in from their orbital positions
         orbitState.tags.forEach((tag, i) => {
             gsap.fromTo(tag,
                 { opacity: 0, scale: 0.5 },
                 {
-                    opacity: tag.style.opacity || 0.5,
-                    scale: tag.style.transform ? parseFloat(tag.style.transform.match(/scale\((.+)\)/)?.[1] || 0.85) : 0.85,
+                    opacity: 0.45,
+                    scale: 0.85,
                     duration: 0.8,
-                    delay: i * 0.08,
+                    delay: i * 0.07,
                     ease: 'back.out(1.5)',
                     onComplete: () => {
-                        if (i === orbitState.count - 1) {
-                            startOrbitAnimation()
-                        }
+                        if (i === orbitState.count - 1) startOrbitAnimation()
                     }
                 }
             )
@@ -225,7 +222,7 @@ function initHero() {
 }
 
 // ============================================
-// PARALLAX
+// PARALLAX — image only
 // ============================================
 function initParallax() {
     const img = document.getElementById('hero-img')

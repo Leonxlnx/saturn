@@ -18,27 +18,34 @@
   <div class="aurora" id="aurora"></div>
   <div class="aurora aurora-2" id="aurora-2"></div>
 
-  <!-- NAV -->
+  <!-- NAV — editorial, not generic -->
   <nav class="nav" id="nav">
-    <a href="#" class="nav-logo">
-      <div class="logo-mark">
-        <div class="logo-dot"></div>
-        <div class="logo-orbit"></div>
-      </div>
-      Saturn
-    </a>
+    <div class="nav-left">
+      <a href="#" class="nav-logo">
+        <div class="logo-mark">
+          <div class="logo-dot"></div>
+          <div class="logo-orbit"></div>
+        </div>
+        Saturn
+      </a>
+      <div class="nav-divider"></div>
+      <span class="nav-status">
+        <span class="nav-status-dot"></span>
+        All systems operational
+      </span>
+    </div>
     <div class="nav-center">
-      <a href="#features" class="nav-link">Features</a>
-      <a href="#method" class="nav-link">Method</a>
-      <a href="#pricing" class="nav-link">Pricing</a>
-      <a href="#" class="nav-link">Docs</a>
+      <a href="#features" class="nav-link"><span>Features</span></a>
+      <a href="#method" class="nav-link"><span>Method</span></a>
+      <a href="#pricing" class="nav-link"><span>Pricing</span></a>
+      <a href="#" class="nav-link"><span>Docs</span></a>
     </div>
     <div class="nav-right">
-      <a href="#" class="nav-link">Log in</a>
+      <a href="#" class="nav-link-ghost">Log in</a>
       <a href="#" class="nav-btn" data-magnetic>
-        Get Started
+        Start Free
         <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
-          <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
+          <path d="M4 7h6M7 4l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
       </a>
@@ -66,7 +73,7 @@
       <p class="hero-sub" data-a>Your goals at the center. Tasks, teams, and deadlines<br />orbit around what matters —
         not the other way around.</p>
       <div class="hero-btns" data-a>
-        <a href="#" class="btn-glow" data-magnetic>
+        <a href="#" class="btn-glow">
           <span class="btn-glow-bg"></span>
           <span class="btn-glow-content">
             Enter Orbit
@@ -76,13 +83,13 @@
             </svg>
           </span>
         </a>
-        <a href="#method" class="btn-glass" data-magnetic>
+        <a href="#method" class="btn-glass">
           See how it works
         </a>
       </div>
     </div>
 
-    <!-- Orbit ring container — tags live here, positioned by JS -->
+    <!-- Orbit ring — tags positioned by JS -->
     <div class="orbit-ring" id="orbit-ring">
       <div class="orbit-tag" data-orbit="0">
         <div class="ot-pulse" style="--c: var(--green);"></div>
