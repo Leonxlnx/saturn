@@ -350,10 +350,6 @@ body:hover .aurora {
   line-height: 1.0;
   letter-spacing: -0.045em;
   text-align: center;
-  background: linear-gradient(180deg, rgba(242, 237, 228, 1) 0%, rgba(242, 237, 228, 0.55) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .h1-line {
@@ -367,6 +363,10 @@ body:hover .aurora {
   display: inline-block;
   opacity: 0;
   transform: translateY(110%);
+  background: linear-gradient(180deg, rgba(242, 237, 228, 1) 0%, rgba(242, 237, 228, 0.55) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .h1-em {
