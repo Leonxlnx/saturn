@@ -675,6 +675,7 @@ body:hover .aurora {
   position: relative;
   width: 280px;
   height: 280px;
+  transform: scaleX(-1) rotate(20deg);
 }
 
 .feat-saturn-img {
