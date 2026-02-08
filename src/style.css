@@ -583,11 +583,11 @@ body:hover .aurora {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(150, 180, 255, 0.6);
+  color: rgba(212, 166, 94, 0.65);
   padding: 0.35rem 0.9rem;
   border-radius: 100px;
-  border: 1px solid rgba(150, 180, 255, 0.1);
-  background: rgba(150, 180, 255, 0.04);
+  border: 1px solid rgba(201, 148, 74, 0.12);
+  background: rgba(201, 148, 74, 0.04);
   backdrop-filter: blur(8px);
   margin-bottom: 1.4rem;
   opacity: 0;
@@ -613,7 +613,7 @@ body:hover .aurora {
 .feat-h2 em {
   font-style: italic;
   font-weight: 700;
-  background: linear-gradient(135deg, rgba(180, 200, 255, 0.9), rgba(120, 160, 255, 0.7));
+  background: linear-gradient(135deg, var(--ochre-soft), var(--ochre));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -706,11 +706,11 @@ body:hover .aurora {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(150, 180, 255, 0.55);
+  color: rgba(212, 166, 94, 0.55);
   padding: 0.25rem 0.6rem;
   border-radius: 100px;
-  border: 1px solid rgba(150, 180, 255, 0.08);
-  background: rgba(150, 180, 255, 0.03);
+  border: 1px solid rgba(201, 148, 74, 0.08);
+  background: rgba(201, 148, 74, 0.03);
   margin-bottom: 0.5rem;
   width: fit-content;
 }
@@ -745,16 +745,16 @@ body:hover .aurora {
 }
 
 /* ============================================
-   GLASSMORPHISM — frozen liquid
+   GLASSMORPHISM — frozen liquid, warm gold
    ============================================ */
 
-/* Floating glass blobs behind section */
+/* Floating glass blobs */
 .glass-blob {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
   filter: blur(80px);
-  opacity: 0.08;
+  opacity: 0.07;
 }
 
 .gb-1 {
@@ -762,7 +762,7 @@ body:hover .aurora {
   height: 500px;
   top: -10%;
   right: -5%;
-  background: radial-gradient(circle, rgba(150, 180, 255, 0.5), transparent 70%);
+  background: radial-gradient(circle, rgba(212, 166, 94, 0.5), transparent 70%);
   animation: blobFloat 18s ease-in-out infinite;
 }
 
@@ -771,7 +771,7 @@ body:hover .aurora {
   height: 400px;
   bottom: 10%;
   left: -8%;
-  background: radial-gradient(circle, rgba(201, 148, 74, 0.4), transparent 70%);
+  background: radial-gradient(circle, rgba(228, 180, 95, 0.4), transparent 70%);
   animation: blobFloat 22s ease-in-out infinite reverse;
 }
 
@@ -780,7 +780,7 @@ body:hover .aurora {
   height: 300px;
   top: 40%;
   left: 50%;
-  background: radial-gradient(circle, rgba(200, 160, 255, 0.3), transparent 70%);
+  background: radial-gradient(circle, rgba(201, 148, 74, 0.35), transparent 70%);
   animation: blobFloat 15s ease-in-out infinite 3s;
 }
 
@@ -800,20 +800,20 @@ body:hover .aurora {
   }
 }
 
-/* Glass card override */
+/* Glass card base */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.025);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(242, 237, 228, 0.05);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(242, 237, 228, 0.1);
 }
 
-/* Inner glow layer per card */
+/* Inner glow */
 .gc-glow {
   position: absolute;
   top: -50%;
@@ -821,7 +821,7 @@ body:hover .aurora {
   width: 200%;
   height: 200%;
   pointer-events: none;
-  background: radial-gradient(circle at 30% 30%, rgba(150, 180, 255, 0.04), transparent 65%);
+  background: radial-gradient(circle at 30% 30%, rgba(201, 148, 74, 0.04), transparent 65%);
   opacity: 0;
   transition: opacity 0.6s ease;
 }
@@ -830,7 +830,85 @@ body:hover .aurora {
   opacity: 1;
 }
 
-/* ---- Smart Canvas visual ---- */
+/* ---- Per-card background patterns ---- */
+
+/* Card A — dot grid */
+.bento-a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(201, 148, 74, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.2) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+/* Card B — concentric circles */
+.bento-b::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: repeating-radial-gradient(circle at 70% 70%,
+      transparent 0px,
+      transparent 18px,
+      rgba(212, 166, 94, 0.04) 19px,
+      transparent 20px);
+  mask-image: radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.5) 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.5) 0%, transparent 75%);
+}
+
+/* Card C — diagonal flow lines */
+.bento-c::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: repeating-linear-gradient(-45deg,
+      transparent,
+      transparent 16px,
+      rgba(228, 180, 95, 0.035) 16px,
+      rgba(228, 180, 95, 0.035) 17px);
+  mask-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+}
+
+/* Card D — horizontal signal waves */
+.bento-d::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 20px,
+      rgba(201, 148, 74, 0.03) 20px,
+      rgba(201, 148, 74, 0.03) 21px);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 30%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 30%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+}
+
+/* Card E — subtle grid / graph lines */
+.bento-e::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(212, 166, 94, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 166, 94, 0.03) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.35) 0%, transparent 60%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.35) 0%, transparent 60%);
+}
+
+/* ---- Smart Canvas — nodes + lines ---- */
 .gc-visual-canvas {
   position: relative;
   width: 180px;
@@ -842,8 +920,8 @@ body:hover .aurora {
   width: 32px;
   height: 32px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(201, 148, 74, 0.06);
+  border: 1px solid rgba(201, 148, 74, 0.12);
   backdrop-filter: blur(12px);
   animation: nodeFloat 6s ease-in-out infinite;
 }
@@ -887,7 +965,7 @@ body:hover .aurora {
 .gc-line {
   position: absolute;
   height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(150, 180, 255, 0.15), rgba(255, 255, 255, 0.03));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(201, 148, 74, 0.14), rgba(255, 255, 255, 0.03));
   transform-origin: left center;
 }
 
@@ -916,8 +994,8 @@ body:hover .aurora {
   position: absolute;
   inset: 20px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(201, 148, 74, 0.06);
+  border: 1px solid rgba(201, 148, 74, 0.12);
   backdrop-filter: blur(8px);
 }
 
@@ -925,7 +1003,7 @@ body:hover .aurora {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid rgba(150, 180, 255, 0.12);
+  border: 1px solid rgba(212, 166, 94, 0.12);
   animation: focusPulse 3s ease-in-out infinite;
 }
 
@@ -935,13 +1013,13 @@ body:hover .aurora {
   100% {
     transform: scale(1);
     opacity: 0.4;
-    border-color: rgba(150, 180, 255, 0.12);
+    border-color: rgba(212, 166, 94, 0.12);
   }
 
   50% {
     transform: scale(1.15);
     opacity: 0.8;
-    border-color: rgba(150, 180, 255, 0.25);
+    border-color: rgba(212, 166, 94, 0.3);
   }
 }
 
@@ -958,7 +1036,7 @@ body:hover .aurora {
   left: 10%;
   right: 10%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201, 148, 74, 0.08), transparent);
 }
 
 .gc-flow-dot {
@@ -966,8 +1044,8 @@ body:hover .aurora {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(212, 166, 94, 0.2);
+  border: 1px solid rgba(212, 166, 94, 0.3);
   top: 50%;
   transform: translateY(-50%);
   animation: flowMove 3s ease-in-out infinite;
@@ -1026,7 +1104,7 @@ body:hover .aurora {
 .gc-pb-line {
   width: 100%;
   height: 1px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(201, 148, 74, 0.06);
 }
 
 .gc-pb-dot {
@@ -1034,11 +1112,11 @@ body:hover .aurora {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(150, 180, 255, 0.3);
-  border: 1px solid rgba(150, 180, 255, 0.4);
+  background: rgba(212, 166, 94, 0.3);
+  border: 1px solid rgba(212, 166, 94, 0.4);
   left: 0;
   animation: pulseScan 3.5s ease-in-out infinite;
-  box-shadow: 0 0 14px rgba(150, 180, 255, 0.2);
+  box-shadow: 0 0 14px rgba(201, 148, 74, 0.2);
 }
 
 @keyframes pulseScan {
@@ -1069,8 +1147,8 @@ body:hover .aurora {
   flex: 1;
   height: var(--h);
   border-radius: 4px 4px 0 0;
-  background: linear-gradient(to top, rgba(150, 180, 255, 0.1), rgba(150, 180, 255, 0.25));
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(to top, rgba(201, 148, 74, 0.1), rgba(212, 166, 94, 0.25));
+  border: 1px solid rgba(212, 166, 94, 0.08);
   backdrop-filter: blur(4px);
   animation: barGrow 2s ease-out forwards;
   transform: scaleY(0);
@@ -1107,70 +1185,27 @@ body:hover .aurora {
    RESPONSIVE
    ============================================ */
 @media (max-width: 900px) {
-  .nav-center {
-    display: none;
-  }
-
-  .nav-link-ghost {
-    display: none;
-  }
-
-  .orbit-ring {
-    display: none;
-  }
-
-  .nav {
-    padding: 0.8rem 1.5rem;
-  }
-
+  .nav-center { display: none; }
+  .nav-link-ghost { display: none; }
+  .orbit-ring { display: none; }
+  .nav { padding: 0.8rem 1.5rem; }
   .bento {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
-
-  .bento-a,
-  .bento-b,
-  .bento-c,
-  .bento-d,
-  .bento-e {
+  .bento-a, .bento-b, .bento-c, .bento-d, .bento-e {
     grid-column: 1;
     grid-row: auto;
   }
-
-  .features {
-    padding: 5rem 1.5rem 4rem;
-  }
-
-  .glass-blob {
-    display: none;
-  }
+  .features { padding: 5rem 1.5rem 4rem; }
+  .glass-blob { display: none; }
 }
 
 @media (max-width: 640px) {
-  .hero-h1 {
-    font-size: clamp(3rem, 13vw, 4.5rem);
-  }
-
-  .hero-sub {
-    font-size: 1rem;
-  }
-
-  .hero-btns {
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .btn-glow-content,
-  .btn-glass {
-    padding: 0.78rem 1.8rem;
-    font-size: 0.92rem;
-  }
-
-  .feat-h2 {
-    font-size: clamp(2rem, 9vw, 3rem);
-  }
-
-  .bento-card {
-    padding: 1.2rem;
-  }
+  .hero-h1 { font-size: clamp(3rem, 13vw, 4.5rem); }
+  .hero-sub { font-size: 1rem; }
+  .hero-btns { flex-direction: column; gap: 0.6rem; }
+  .btn-glow-content, .btn-glass { padding: 0.78rem 1.8rem; font-size: 0.92rem; }
+  .feat-h2 { font-size: clamp(2rem, 9vw, 3rem); }
+  .bento-card { padding: 1.2rem; }
 }
