@@ -8,22 +8,145 @@
   <meta name="description"
     content="Saturn is the orbit-based project management tool where teams, tasks, and deadlines revolve around your central workflow." />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">Now in Public Beta</div>
-      <h1>Everything <em>revolves</em> around your workflow.</h1>
-      <p class="hero-subtitle">Saturn is the orbit-based project management tool where teams, tasks, and deadlines
-        naturally gravitate around your central goals.</p>
-      <div class="hero-cta">
-        <a href="#" class="btn-primary">Get Started Free</a>
-        <a href="#" class="btn-ghost">See How It Works</a>
+  <!-- GRAIN OVERLAY -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- CURSOR GLOW -->
+  <div class="cursor-glow" id="cursor-glow"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" id="nav-logo">
+        <div class="logo-planet-wrapper">
+          <div class="logo-planet"></div>
+          <div class="logo-ring"></div>
+        </div>
+        <span>Saturn</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#orbit" class="nav-link">Method</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
       </div>
+      <div class="nav-actions">
+        <a href="#" class="nav-link">Log in</a>
+        <a href="#" class="btn-primary btn-sm magnetic-btn">
+          <span>Start Free</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <!-- Canvas starfield -->
+    <canvas id="starfield" class="hero-starfield"></canvas>
+
+    <!-- Ambient glow orbs -->
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+
+    <!-- Hero Content -->
+    <div class="hero-layout">
+      <div class="hero-left">
+        <div class="hero-badge" id="hero-badge">
+          <span class="badge-pulse"></span>
+          <span class="badge-text">Public Beta — Now Live</span>
+        </div>
+
+        <h1 class="hero-title" id="hero-title">
+          <span class="title-line">
+            <span class="title-word" data-word>Everything</span>
+          </span>
+          <span class="title-line">
+            <span class="title-word title-italic" data-word>revolves</span>
+            <span class="title-word" data-word>around</span>
+          </span>
+          <span class="title-line">
+            <span class="title-word" data-word>your</span>
+            <span class="title-word title-gradient" data-word>workflow.</span>
+          </span>
+        </h1>
+
+        <p class="hero-desc" id="hero-desc">
+          The orbit-based project management tool where teams, tasks, and deadlines naturally gravitate around your
+          central goals.
+        </p>
+
+        <div class="hero-actions" id="hero-actions">
+          <a href="#" class="btn-primary btn-lg magnetic-btn">
+            <span>Get Started Free</span>
+            <svg class="btn-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+          <a href="#orbit" class="btn-outline btn-lg magnetic-btn">
+            <span>How it works</span>
+          </a>
+        </div>
+
+        <div class="hero-proof" id="hero-proof">
+          <div class="proof-avatars">
+            <div class="proof-avatar" style="--i:0; --hue:35;">L</div>
+            <div class="proof-avatar" style="--i:1; --hue:260;">M</div>
+            <div class="proof-avatar" style="--i:2; --hue:160;">S</div>
+            <div class="proof-avatar" style="--i:3; --hue:330;">A</div>
+            <div class="proof-avatar" style="--i:4; --hue:210;">K</div>
+          </div>
+          <div class="proof-text">
+            <span class="proof-number">2,400+</span> teams in orbit
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="saturn-scene" id="saturn-scene">
+          <!-- Main planet -->
+          <div class="planet">
+            <div class="planet-body">
+              <div class="planet-atmosphere"></div>
+              <div class="planet-surface"></div>
+              <div class="planet-highlight"></div>
+            </div>
+            <!-- Rings -->
+            <div class="ring-system">
+              <div class="ring ring-1"></div>
+              <div class="ring ring-2"></div>
+              <div class="ring ring-3"></div>
+            </div>
+            <!-- Orbiting elements -->
+            <div class="orbit-path orbit-path-1">
+              <div class="orbit-object oo-1">
+                <span>Design</span>
+              </div>
+            </div>
+            <div class="orbit-path orbit-path-2">
+              <div class="orbit-object oo-2">
+                <span>Dev</span>
+              </div>
+            </div>
+            <div class="orbit-path orbit-path-3">
+              <div class="orbit-object oo-3">
+                <span>Ship</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" id="scroll-indicator">
+      <div class="scroll-line"></div>
     </div>
   </section>
 
