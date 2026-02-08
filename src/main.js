@@ -54,47 +54,98 @@ function initMagnetic() {
 }
 
 // ============================================
-// ORBIT TAG INDEPENDENT ANIMATIONS
+// ORBIT SYSTEM — tags on a 3D elliptical ring
 // ============================================
-function animateOrbitTags() {
+const orbitState = {
+    tags: [],
+    count: 0,
+    angleOffset: 0,
+    // Ellipse params — will be recalculated on resize
+    cx: 0,
+    cy: 0,
+    rx: 0,
+    ry: 0,
+    tilt: -10 * (Math.PI / 180), // slight tilt for 3D
+    speed: 0.0003, // radians per frame — very slow
+    active: false,
+}
+
+function initOrbitLayout() {
+    const hero = document.getElementById('hero')
+    if (!hero) return
+
     const tags = document.querySelectorAll('.orbit-tag')
+    orbitState.tags = Array.from(tags)
+    orbitState.count = tags.length
+
+    function updateEllipse() {
+        const w = window.innerWidth
+        const h = window.innerHeight
+        orbitState.cx = w / 2
+        orbitState.cy = h * 0.47
+        orbitState.rx = Math.min(w * 0.42, 620) // horizontal radius clamped
+        orbitState.ry = Math.min(h * 0.2, 170)   // vertical radius — flat = 3D look
+    }
+
+    updateEllipse()
+    window.addEventListener('resize', updateEllipse)
+
+    // Position tags immediately (hidden)
+    positionTags()
+}
+
+function positionTags() {
+    const { tags, count, cx, cy, rx, ry, tilt, angleOffset } = orbitState
+
     tags.forEach((tag, i) => {
-        // Each tag gets its own looping drift animation
-        const dur = 10 + i * 3
-        const xRange = 15 + Math.random() * 15
-        const yRange = 10 + Math.random() * 12
-        const rot = 1 + Math.random() * 1.5
+        const baseAngle = (i / count) * Math.PI * 2
+        const angle = baseAngle + angleOffset
 
-        gsap.to(tag, {
-            x: `+=${xRange}`,
-            y: `-=${yRange}`,
-            rotation: rot,
-            duration: dur / 2,
-            ease: 'sine.inOut',
-            yoyo: true,
-            repeat: -1,
-        })
+        // Ellipse position
+        const ex = Math.cos(angle) * rx
+        const ey = Math.sin(angle) * ry
 
-        // Also add a secondary micro-drift
-        gsap.to(tag, {
-            x: `-=${xRange * 0.4}`,
-            y: `+=${yRange * 0.5}`,
-            duration: dur / 3,
-            ease: 'sine.inOut',
-            yoyo: true,
-            repeat: -1,
-            delay: i * 0.3,
-        })
+        // Apply tilt rotation
+        const x = cx + ex * Math.cos(tilt) - ey * Math.sin(tilt)
+        const y = cy + ex * Math.sin(tilt) + ey * Math.cos(tilt)
+
+        // 3D depth: items at "back" (top) are smaller + more transparent
+        const depth = Math.sin(angle) // -1 = back, 1 = front
+        const scale = 0.75 + (depth + 1) * 0.15 // 0.75 to 1.05
+        const opacity = 0.3 + (depth + 1) * 0.25 // 0.3 to 0.8
+        const zIndex = depth > 0 ? 8 : 3 // front = above content, back = behind
+
+        // Center the tag on the point
+        const tagW = tag.offsetWidth / 2
+        const tagH = tag.offsetHeight / 2
+
+        tag.style.left = `${x - tagW}px`
+        tag.style.top = `${y - tagH}px`
+        tag.style.transform = `scale(${scale})`
+        tag.style.opacity = opacity
+        tag.style.zIndex = zIndex
     })
 }
 
+function startOrbitAnimation() {
+    orbitState.active = true
+
+    function tick() {
+        if (!orbitState.active) return
+        orbitState.angleOffset += orbitState.speed
+        positionTags()
+        requestAnimationFrame(tick)
+    }
+    tick()
+}
+
 // ============================================
-// HERO — cinematic Saturn reveal
+// HERO ENTRANCE
 // ============================================
 function initHero() {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-    // 1. Saturn circular reveal — starts dark, circle expands
+    // 1. Saturn circular reveal
     tl.to('#hero-img-wrap', {
         clipPath: 'circle(90% at 50% 45%)',
         duration: 3,
@@ -102,7 +153,6 @@ function initHero() {
         delay: 0.3,
     })
 
-    // Simultaneous zoom settle
     tl.to('.hero-img', {
         scale: 1,
         duration: 3.5,
@@ -151,27 +201,27 @@ function initHero() {
         duration: 0.65,
     }, '-=0.35')
 
-    // 7. Tags — fly in from off-screen with spring
-    const tags = document.querySelectorAll('.orbit-tag')
-    tags.forEach((tag, i) => {
-        // Determine which side tag comes from
-        const fromLeft = tag.classList.contains('ot-1') || tag.classList.contains('ot-4') || tag.classList.contains('ot-6')
-        const startX = fromLeft ? -120 : 120
-        const startY = (Math.random() - 0.5) * 60
-
-        gsap.set(tag, { x: startX, y: startY })
-
-        tl.to(tag, {
-            opacity: 0.9,
-            x: 0,
-            y: 0,
-            duration: 1,
-            ease: 'elastic.out(0.8, 0.6)',
-        }, `-=${0.85 - i * 0.06}`)
-    })
-
-    // After entrance, start the tag drift animations
-    tl.call(animateOrbitTags)
+    // 7. Orbit tags fade in (they're already positioned by initOrbitLayout)
+    tl.call(() => {
+        // Tags fade in from their orbital positions
+        orbitState.tags.forEach((tag, i) => {
+            gsap.fromTo(tag,
+                { opacity: 0, scale: 0.5 },
+                {
+                    opacity: tag.style.opacity || 0.5,
+                    scale: tag.style.transform ? parseFloat(tag.style.transform.match(/scale\((.+)\)/)?.[1] || 0.85) : 0.85,
+                    duration: 0.8,
+                    delay: i * 0.08,
+                    ease: 'back.out(1.5)',
+                    onComplete: () => {
+                        if (i === orbitState.count - 1) {
+                            startOrbitAnimation()
+                        }
+                    }
+                }
+            )
+        })
+    }, null, '-=0.3')
 }
 
 // ============================================
@@ -179,7 +229,6 @@ function initHero() {
 // ============================================
 function initParallax() {
     const img = document.getElementById('hero-img')
-    const tags = document.querySelectorAll('.orbit-tag')
 
     document.addEventListener('mousemove', e => {
         const x = (e.clientX / window.innerWidth - 0.5) * 2
@@ -193,17 +242,6 @@ function initParallax() {
                 ease: 'power2.out',
             })
         }
-
-        // Tags react to mouse at different intensities
-        tags.forEach((tag, i) => {
-            const intensity = 4 + i * 2.5
-            gsap.to(tag, {
-                x: `+=${x * intensity * 0.15}`,
-                y: `+=${y * intensity * 0.1}`,
-                duration: 2,
-                ease: 'power2.out',
-            })
-        })
     })
 }
 
@@ -213,6 +251,7 @@ function initParallax() {
 document.addEventListener('DOMContentLoaded', () => {
     initAurora()
     initMagnetic()
+    initOrbitLayout()
     initHero()
     initParallax()
 })

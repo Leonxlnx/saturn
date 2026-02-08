@@ -82,36 +82,38 @@
       </div>
     </div>
 
-    <!-- ORBIT TAGS — realistic task indicators -->
-    <div class="orbit-tag ot-1">
-      <div class="ot-pulse" style="--c: var(--green);"></div>
-      <span class="ot-label">Sprint 04</span>
-      <span class="ot-meta">In progress</span>
-    </div>
-    <div class="orbit-tag ot-2">
-      <div class="ot-pulse" style="--c: var(--teal);"></div>
-      <span class="ot-label">v2.1.0</span>
-      <span class="ot-badge ot-badge-done">Shipped</span>
-    </div>
-    <div class="orbit-tag ot-3">
-      <div class="ot-pulse" style="--c: var(--rose);"></div>
-      <span class="ot-label">3 reviews</span>
-      <span class="ot-meta">Pending</span>
-    </div>
-    <div class="orbit-tag ot-4">
-      <div class="ot-pulse" style="--c: var(--violet);"></div>
-      <span class="ot-label">Homepage redesign</span>
-      <span class="ot-badge ot-badge-active">Active</span>
-    </div>
-    <div class="orbit-tag ot-5">
-      <div class="ot-pulse" style="--c: var(--amber);"></div>
-      <span class="ot-label">API migration</span>
-      <span class="ot-meta">Due Fri</span>
-    </div>
-    <div class="orbit-tag ot-6">
-      <div class="ot-pulse" style="--c: var(--blue);"></div>
-      <span class="ot-label">Design system</span>
-      <span class="ot-meta">12 tasks</span>
+    <!-- Orbit ring container — tags live here, positioned by JS -->
+    <div class="orbit-ring" id="orbit-ring">
+      <div class="orbit-tag" data-orbit="0">
+        <div class="ot-pulse" style="--c: var(--green);"></div>
+        <span class="ot-label">Sprint 04</span>
+        <span class="ot-meta">In progress</span>
+      </div>
+      <div class="orbit-tag" data-orbit="1">
+        <div class="ot-pulse" style="--c: var(--teal);"></div>
+        <span class="ot-label">v2.1.0</span>
+        <span class="ot-badge ot-badge-done">Shipped</span>
+      </div>
+      <div class="orbit-tag" data-orbit="2">
+        <div class="ot-pulse" style="--c: var(--rose);"></div>
+        <span class="ot-label">3 reviews</span>
+        <span class="ot-meta">Pending</span>
+      </div>
+      <div class="orbit-tag" data-orbit="3">
+        <div class="ot-pulse" style="--c: var(--violet);"></div>
+        <span class="ot-label">Homepage redesign</span>
+        <span class="ot-badge ot-badge-active">Active</span>
+      </div>
+      <div class="orbit-tag" data-orbit="4">
+        <div class="ot-pulse" style="--c: var(--amber);"></div>
+        <span class="ot-label">API migration</span>
+        <span class="ot-meta">Due Fri</span>
+      </div>
+      <div class="orbit-tag" data-orbit="5">
+        <div class="ot-pulse" style="--c: var(--blue);"></div>
+        <span class="ot-label">Design system</span>
+        <span class="ot-meta">12 tasks</span>
+      </div>
     </div>
 
   </section>
