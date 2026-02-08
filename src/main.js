@@ -2,225 +2,200 @@ import './style.css'
 import gsap from 'gsap'
 
 // ============================================
-// STARFIELD CANVAS
+// STARFIELD
 // ============================================
 function initStarfield() {
     const canvas = document.getElementById('starfield')
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-
     let stars = []
-    const STAR_COUNT = 200
 
     function resize() {
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight
     }
 
-    function createStars() {
-        stars = []
-        for (let i = 0; i < STAR_COUNT; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 1.2 + 0.2,
-                opacity: Math.random() * 0.6 + 0.1,
-                pulse: Math.random() * Math.PI * 2,
-                pulseSpeed: Math.random() * 0.008 + 0.002,
-            })
-        }
+    function create() {
+        stars = Array.from({ length: 180 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.1 + 0.15,
+            o: Math.random() * 0.5 + 0.05,
+            phase: Math.random() * Math.PI * 2,
+            speed: Math.random() * 0.006 + 0.002,
+        }))
     }
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-        for (const star of stars) {
-            star.pulse += star.pulseSpeed
-            const alpha = star.opacity + Math.sin(star.pulse) * 0.15
-
+        for (const s of stars) {
+            s.phase += s.speed
+            const alpha = s.o + Math.sin(s.phase) * 0.12
             ctx.beginPath()
-            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2)
-            ctx.fillStyle = `rgba(240, 236, 228, ${Math.max(0, alpha)})`
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
+            ctx.fillStyle = `rgba(237, 232, 223, ${Math.max(0, alpha)})`
             ctx.fill()
         }
-
         requestAnimationFrame(draw)
     }
 
     resize()
-    createStars()
+    create()
     draw()
-
-    window.addEventListener('resize', () => {
-        resize()
-        createStars()
-    })
+    window.addEventListener('resize', () => { resize(); create() })
 }
 
 // ============================================
-// CURSOR GLOW
+// CUSTOM CURSOR
 // ============================================
-function initCursorGlow() {
-    const glow = document.getElementById('cursor-glow')
-    if (!glow) return
+function initCursor() {
+    const ring = document.getElementById('cursor-ring')
+    const dot = document.getElementById('cursor-dot')
+    if (!ring || !dot) return
 
-    let mouseX = 0, mouseY = 0
-    let glowX = 0, glowY = 0
+    let mx = 0, my = 0, rx = 0, ry = 0, dx = 0, dy = 0
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX
-        mouseY = e.clientY
-        glow.classList.add('active')
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX
+        my = e.clientY
     })
 
-    document.addEventListener('mouseleave', () => {
-        glow.classList.remove('active')
+    // Hover effect on interactive elements
+    const interactives = document.querySelectorAll('a, button, [data-magnetic]')
+    interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('hovering'))
+        el.addEventListener('mouseleave', () => ring.classList.remove('hovering'))
     })
 
     function animate() {
-        glowX += (mouseX - glowX) * 0.08
-        glowY += (mouseY - glowY) * 0.08
-        glow.style.left = glowX + 'px'
-        glow.style.top = glowY + 'px'
+        // Ring follows with lag
+        rx += (mx - rx) * 0.1
+        ry += (my - ry) * 0.1
+        ring.style.left = rx + 'px'
+        ring.style.top = ry + 'px'
+
+        // Dot follows tightly
+        dx += (mx - dx) * 0.25
+        dy += (my - dy) * 0.25
+        dot.style.left = dx + 'px'
+        dot.style.top = dy + 'px'
+
         requestAnimationFrame(animate)
     }
-
     animate()
 }
 
 // ============================================
-// MAGNETIC BUTTONS
+// MAGNETIC ELEMENTS
 // ============================================
-function initMagneticButtons() {
-    const buttons = document.querySelectorAll('.magnetic-btn')
-
-    buttons.forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect()
+function initMagnetic() {
+    document.querySelectorAll('[data-magnetic]').forEach(el => {
+        el.addEventListener('mousemove', e => {
+            const rect = el.getBoundingClientRect()
             const x = e.clientX - rect.left - rect.width / 2
             const y = e.clientY - rect.top - rect.height / 2
-
-            gsap.to(btn, {
-                x: x * 0.2,
-                y: y * 0.2,
-                duration: 0.4,
-                ease: 'power2.out'
-            })
+            gsap.to(el, { x: x * 0.25, y: y * 0.25, duration: 0.4, ease: 'power2.out' })
         })
-
-        btn.addEventListener('mouseleave', () => {
-            gsap.to(btn, {
-                x: 0,
-                y: 0,
-                duration: 0.6,
-                ease: 'elastic.out(1, 0.5)'
-            })
+        el.addEventListener('mouseleave', () => {
+            gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' })
         })
     })
 }
 
 // ============================================
-// HERO ENTRANCE ANIMATIONS
+// HERO ENTRANCE TIMELINE
 // ============================================
-function initHeroAnimations() {
-    const tl = gsap.timeline({
-        defaults: { ease: 'power3.out' },
-        delay: 0.3
+function initHeroAnimation() {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.2 })
+
+    // 1. Background text fades in
+    tl.to('.bg-word', {
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power2.inOut',
     })
 
-    // Navbar fade in
-    tl.from('#navbar', {
-        y: -20,
-        opacity: 0,
-        duration: 0.8,
-    })
+    // 2. Planet scales in
+    tl.to('.planet-wrap', {
+        opacity: 1,
+        scale: 1,
+        duration: 1.4,
+        ease: 'power2.out',
+    }, '-=1.0')
 
-    // Badge
-    tl.to('#hero-badge', {
+    // Apply initial scale
+    gsap.set('.planet-wrap', { scale: 0.7 })
+
+    // 3. Title words reveal
+    tl.to('[data-w]', {
         opacity: 1,
         y: 0,
-        duration: 0.6,
-    }, '-=0.4')
-
-    // Title words — staggered reveal
-    tl.to('[data-word]', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.08,
+        duration: 0.9,
+        stagger: 0.1,
         ease: 'power4.out',
-    }, '-=0.3')
+    }, '-=0.8')
 
-    // Description
+    // 4. Tag line
+    tl.to('#tag-tl', {
+        opacity: 1,
+        duration: 0.6,
+    }, '-=0.5')
+
+    // 5. Description & buttons
     tl.to('#hero-desc', {
         opacity: 1,
         y: 0,
         duration: 0.7,
-    }, '-=0.4')
+    }, '-=0.3')
 
-    // Buttons
     tl.to('#hero-actions', {
         opacity: 1,
         y: 0,
+        duration: 0.7,
+    }, '-=0.5')
+
+    // 6. Floating stats
+    tl.to('.float-stat', {
+        opacity: 0.6,
         duration: 0.6,
+        stagger: 0.12,
     }, '-=0.4')
 
-    // Social proof
-    tl.to('#hero-proof', {
+    // 7. Corner elements
+    tl.to('.corner-text', {
         opacity: 1,
-        y: 0,
-        duration: 0.6,
-    }, '-=0.3')
-
-    // Saturn scene
-    tl.to('#saturn-scene', {
-        opacity: 1,
-        scale: 1,
-        duration: 1.2,
-        ease: 'power2.out',
-    }, '-=0.8')
-
-    // Scroll indicator
-    tl.to('#scroll-indicator', {
-        opacity: 0.5,
-        duration: 0.8,
+        duration: 0.5,
     }, '-=0.3')
 }
 
 // ============================================
-// PLANET PARALLAX ON MOUSE MOVE
+// PLANET PARALLAX ON MOUSE
 // ============================================
-function initPlanetParallax() {
-    const scene = document.getElementById('saturn-scene')
-    if (!scene) return
+function initParallax() {
+    const planet = document.getElementById('planet-wrap')
+    const bgWord = document.getElementById('bgWord')
+    if (!planet) return
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', e => {
         const x = (e.clientX / window.innerWidth - 0.5) * 2
         const y = (e.clientY / window.innerHeight - 0.5) * 2
 
-        gsap.to(scene, {
-            rotateY: x * 8,
-            rotateX: -y * 5,
-            duration: 1.2,
-            ease: 'power2.out'
+        gsap.to(planet, {
+            rotateY: x * 12,
+            rotateX: -y * 8,
+            x: x * 15,
+            y: y * 10,
+            duration: 1.5,
+            ease: 'power2.out',
         })
-    })
-}
 
-// ============================================
-// NAVBAR SCROLL EFFECT
-// ============================================
-function initNavScroll() {
-    const navbar = document.getElementById('navbar')
-    if (!navbar) return
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.borderBottomColor = 'rgba(240, 236, 228, 0.08)'
-            navbar.style.background = 'rgba(6, 6, 8, 0.85)'
-        } else {
-            navbar.style.borderBottomColor = 'rgba(240, 236, 228, 0.06)'
-            navbar.style.background = 'rgba(6, 6, 8, 0.6)'
+        if (bgWord) {
+            gsap.to(bgWord, {
+                x: x * -25,
+                y: y * -15,
+                duration: 2,
+                ease: 'power2.out',
+            })
         }
     })
 }
@@ -230,9 +205,8 @@ function initNavScroll() {
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
     initStarfield()
-    initCursorGlow()
-    initMagneticButtons()
-    initHeroAnimations()
-    initPlanetParallax()
-    initNavScroll()
+    initCursor()
+    initMagnetic()
+    initHeroAnimation()
+    initParallax()
 })
