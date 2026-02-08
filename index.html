@@ -15,8 +15,6 @@
 <body>
 
   <div class="grain" aria-hidden="true"></div>
-
-  <!-- Aurora mouse -->
   <div class="aurora" id="aurora"></div>
   <div class="aurora aurora-2" id="aurora-2"></div>
 
@@ -39,7 +37,7 @@
       <a href="#" class="nav-link">Log in</a>
       <a href="#" class="nav-btn" data-magnetic>
         Get Started
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
           <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
@@ -50,7 +48,6 @@
   <!-- ======================== HERO ======================== -->
   <section class="hero" id="hero">
 
-    <!-- Background: Saturn photo with cinematic reveal -->
     <div class="hero-bg">
       <div class="hero-img-wrap" id="hero-img-wrap">
         <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=1920&q=85&auto=format" alt=""
@@ -63,12 +60,8 @@
     <div class="hero-content" id="hero-content">
       <p class="hero-eyebrow" data-a>[ Project management, reimagined ]</p>
       <h1 class="hero-h1">
-        <span class="h1-line">
-          <span class="h1-word" data-a>Everything</span>
-        </span>
-        <span class="h1-line">
-          <span class="h1-word h1-em" data-a>revolves.</span>
-        </span>
+        <span class="h1-line"><span class="h1-word" data-a>Everything</span></span>
+        <span class="h1-line"><span class="h1-word h1-em" data-a>revolves.</span></span>
       </h1>
       <p class="hero-sub" data-a>Your goals at the center. Tasks, teams, and deadlines<br />orbit around what matters —
         not the other way around.</p>
@@ -77,7 +70,7 @@
           <span class="btn-glow-bg"></span>
           <span class="btn-glow-content">
             Enter Orbit
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
               <path d="M4 8h8M9 5l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
                 stroke-linejoin="round" />
             </svg>
@@ -89,18 +82,36 @@
       </div>
     </div>
 
-    <!-- Small ambient orbit tags -->
-    <div class="orbit-tag ot-1" id="ot-1">
-      <div class="ot-pulse" style="--c: var(--violet);"></div>
-      Sprint 04
+    <!-- ORBIT TAGS — realistic task indicators -->
+    <div class="orbit-tag ot-1">
+      <div class="ot-pulse" style="--c: var(--green);"></div>
+      <span class="ot-label">Sprint 04</span>
+      <span class="ot-meta">In progress</span>
     </div>
-    <div class="orbit-tag ot-2" id="ot-2">
+    <div class="orbit-tag ot-2">
       <div class="ot-pulse" style="--c: var(--teal);"></div>
-      v2.1 shipped
+      <span class="ot-label">v2.1.0</span>
+      <span class="ot-badge ot-badge-done">Shipped</span>
     </div>
-    <div class="orbit-tag ot-3" id="ot-3">
+    <div class="orbit-tag ot-3">
       <div class="ot-pulse" style="--c: var(--rose);"></div>
-      3 reviews pending
+      <span class="ot-label">3 reviews</span>
+      <span class="ot-meta">Pending</span>
+    </div>
+    <div class="orbit-tag ot-4">
+      <div class="ot-pulse" style="--c: var(--violet);"></div>
+      <span class="ot-label">Homepage redesign</span>
+      <span class="ot-badge ot-badge-active">Active</span>
+    </div>
+    <div class="orbit-tag ot-5">
+      <div class="ot-pulse" style="--c: var(--amber);"></div>
+      <span class="ot-label">API migration</span>
+      <span class="ot-meta">Due Fri</span>
+    </div>
+    <div class="orbit-tag ot-6">
+      <div class="ot-pulse" style="--c: var(--blue);"></div>
+      <span class="ot-label">Design system</span>
+      <span class="ot-meta">12 tasks</span>
     </div>
 
   </section>

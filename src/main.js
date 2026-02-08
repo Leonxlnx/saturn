@@ -2,7 +2,7 @@ import './style.css'
 import gsap from 'gsap'
 
 // ============================================
-// AURORA — mouse-following ambient glow
+// AURORA
 // ============================================
 function initAurora() {
     const a1 = document.getElementById('aurora')
@@ -28,10 +28,9 @@ function initAurora() {
         bx += (mx - bx) * 0.018
         by += (my - by) * 0.018
         if (a2) {
-            a2.style.left = (bx + 90) + 'px'
-            a2.style.top = (by - 70) + 'px'
+            a2.style.left = (bx + 100) + 'px'
+            a2.style.top = (by - 80) + 'px'
         }
-
         requestAnimationFrame(tick)
     }
     tick()
@@ -55,55 +54,88 @@ function initMagnetic() {
 }
 
 // ============================================
+// ORBIT TAG INDEPENDENT ANIMATIONS
+// ============================================
+function animateOrbitTags() {
+    const tags = document.querySelectorAll('.orbit-tag')
+    tags.forEach((tag, i) => {
+        // Each tag gets its own looping drift animation
+        const dur = 10 + i * 3
+        const xRange = 15 + Math.random() * 15
+        const yRange = 10 + Math.random() * 12
+        const rot = 1 + Math.random() * 1.5
+
+        gsap.to(tag, {
+            x: `+=${xRange}`,
+            y: `-=${yRange}`,
+            rotation: rot,
+            duration: dur / 2,
+            ease: 'sine.inOut',
+            yoyo: true,
+            repeat: -1,
+        })
+
+        // Also add a secondary micro-drift
+        gsap.to(tag, {
+            x: `-=${xRange * 0.4}`,
+            y: `+=${yRange * 0.5}`,
+            duration: dur / 3,
+            ease: 'sine.inOut',
+            yoyo: true,
+            repeat: -1,
+            delay: i * 0.3,
+        })
+    })
+}
+
+// ============================================
 // HERO — cinematic Saturn reveal
 // ============================================
 function initHero() {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-    // 1. Saturn reveal — circular clip-path expands from center
+    // 1. Saturn circular reveal — starts dark, circle expands
     tl.to('#hero-img-wrap', {
-        clipPath: 'circle(85% at 50% 45%)',
-        duration: 2.8,
+        clipPath: 'circle(90% at 50% 45%)',
+        duration: 3,
         ease: 'power2.inOut',
-        delay: 0.4,
+        delay: 0.3,
     })
 
-    // Simultaneously: image zooms to rest
+    // Simultaneous zoom settle
     tl.to('.hero-img', {
         scale: 1,
-        duration: 3,
+        duration: 3.5,
         ease: 'power2.out',
     }, '<')
 
-    // 2. Nav fades in
+    // 2. Nav
     tl.to('#nav', {
         opacity: 1,
         y: 0,
         duration: 0.7,
-        // Need to reset the transform to only remove the Y offset
         clearProps: 'transform',
         onComplete: () => {
-            // Re-center after animation
             const nav = document.getElementById('nav')
             if (nav) nav.style.transform = 'translateX(-50%)'
         }
-    }, '-=2.0')
+    }, '-=2.2')
 
     // 3. Eyebrow
     tl.to('.hero-eyebrow', {
         opacity: 1,
         y: 0,
         duration: 0.6,
-    }, '-=1.5')
+    }, '-=1.6')
 
-    // 4. Title words — one by one
+    // 4. Title words
     tl.to('.h1-word', {
         opacity: 1,
         y: 0,
-        duration: 1,
-        stagger: 0.18,
+        duration: 1.1,
+        stagger: 0.2,
         ease: 'power4.out',
-    }, '-=1.2')
+    }, '-=1.3')
 
     // 5. Subtitle
     tl.to('.hero-sub', {
@@ -116,15 +148,30 @@ function initHero() {
     tl.to('.hero-btns', {
         opacity: 1,
         y: 0,
-        duration: 0.6,
-    }, '-=0.3')
+        duration: 0.65,
+    }, '-=0.35')
 
-    // 7. Orbit tags float in
-    tl.to('.orbit-tag', {
-        opacity: 0.85,
-        duration: 0.8,
-        stagger: 0.12,
-    }, '-=0.4')
+    // 7. Tags — fly in from off-screen with spring
+    const tags = document.querySelectorAll('.orbit-tag')
+    tags.forEach((tag, i) => {
+        // Determine which side tag comes from
+        const fromLeft = tag.classList.contains('ot-1') || tag.classList.contains('ot-4') || tag.classList.contains('ot-6')
+        const startX = fromLeft ? -120 : 120
+        const startY = (Math.random() - 0.5) * 60
+
+        gsap.set(tag, { x: startX, y: startY })
+
+        tl.to(tag, {
+            opacity: 0.9,
+            x: 0,
+            y: 0,
+            duration: 1,
+            ease: 'elastic.out(0.8, 0.6)',
+        }, `-=${0.85 - i * 0.06}`)
+    })
+
+    // After entrance, start the tag drift animations
+    tl.call(animateOrbitTags)
 }
 
 // ============================================
@@ -140,18 +187,20 @@ function initParallax() {
 
         if (img) {
             gsap.to(img, {
-                x: x * -7,
-                y: y * -4,
+                x: x * -10,
+                y: y * -6,
                 duration: 2.5,
                 ease: 'power2.out',
             })
         }
 
+        // Tags react to mouse at different intensities
         tags.forEach((tag, i) => {
+            const intensity = 4 + i * 2.5
             gsap.to(tag, {
-                x: x * (8 + i * 6),
-                y: y * (5 + i * 4),
-                duration: 2.2,
+                x: `+=${x * intensity * 0.15}`,
+                y: `+=${y * intensity * 0.1}`,
+                duration: 2,
                 ease: 'power2.out',
             })
         })

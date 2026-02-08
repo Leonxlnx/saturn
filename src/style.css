@@ -1,5 +1,5 @@
 /* ============================================
-   SATURN — PREMIUM / CREATIVE / CINEMATIC
+   SATURN — PREMIUM / BIGGER / MORE ALIVE
    ============================================ */
 
 *,
@@ -12,7 +12,7 @@
 
 :root {
   --cream: #F2EDE4;
-  --cream-dim: rgba(242, 237, 228, 0.40);
+  --cream-dim: rgba(242, 237, 228, 0.42);
   --cream-muted: rgba(242, 237, 228, 0.12);
   --cream-ghost: rgba(242, 237, 228, 0.05);
   --ochre: #C9944A;
@@ -21,6 +21,9 @@
   --violet: #9B8ADB;
   --teal: #5CC9B1;
   --rose: #E47A9F;
+  --green: #6BCB77;
+  --amber: #E4B45F;
+  --blue: #6BA3E4;
 }
 
 html {
@@ -53,23 +56,23 @@ body {
 /* --- AURORA --- */
 .aurora {
   position: fixed;
-  width: 700px;
-  height: 700px;
+  width: 800px;
+  height: 800px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
-  filter: blur(160px);
+  filter: blur(170px);
   opacity: 0;
   transition: opacity 0.8s ease;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(201, 148, 74, 0.09), transparent 70%);
+  background: radial-gradient(circle, rgba(201, 148, 74, 0.1), transparent 70%);
 }
 
 .aurora-2 {
-  width: 500px;
-  height: 500px;
-  filter: blur(130px);
-  background: radial-gradient(circle, rgba(155, 138, 219, 0.05), transparent 70%);
+  width: 600px;
+  height: 600px;
+  filter: blur(140px);
+  background: radial-gradient(circle, rgba(155, 138, 219, 0.06), transparent 70%);
 }
 
 body:hover .aurora {
@@ -77,18 +80,18 @@ body:hover .aurora {
 }
 
 /* ============================================
-   NAV — floating glass pill
+   NAV — BIGGER, floating glass pill
    ============================================ */
 .nav {
   position: fixed;
-  top: 1rem;
+  top: 1.1rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.55rem 0.6rem 0.55rem 1.2rem;
+  gap: 1.1rem;
+  padding: 0.65rem 0.7rem 0.65rem 1.4rem;
   border-radius: 100px;
   background: rgba(242, 237, 228, 0.035);
   backdrop-filter: blur(24px);
@@ -102,19 +105,19 @@ body:hover .aurora {
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 1rem;
   color: var(--cream);
   text-decoration: none;
   letter-spacing: -0.01em;
-  margin-right: 0.8rem;
+  margin-right: 1rem;
 }
 
 .logo-mark {
   position: relative;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 .logo-dot {
@@ -122,8 +125,8 @@ body:hover .aurora {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--ochre-soft), var(--ochre));
 }
@@ -140,15 +143,15 @@ body:hover .aurora {
 .nav-center {
   display: flex;
   align-items: center;
-  gap: 0.15rem;
+  gap: 0.2rem;
 }
 
 .nav-link {
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: var(--cream-dim);
   text-decoration: none;
-  padding: 0.38rem 0.7rem;
+  padding: 0.45rem 0.85rem;
   border-radius: 100px;
   transition: all 0.25s ease;
 }
@@ -161,19 +164,19 @@ body:hover .aurora {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  margin-left: 0.4rem;
+  gap: 0.35rem;
+  margin-left: 0.5rem;
 }
 
 .nav-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
+  gap: 0.4rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--bg);
   background: var(--cream);
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1.15rem;
   border-radius: 100px;
   text-decoration: none;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -181,7 +184,7 @@ body:hover .aurora {
 
 .nav-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 24px rgba(242, 237, 228, 0.15);
+  box-shadow: 0 4px 28px rgba(242, 237, 228, 0.18);
 }
 
 /* ============================================
@@ -198,10 +201,10 @@ body:hover .aurora {
   justify-content: center;
 }
 
-/* --- BG Image with cinematic reveal --- */
+/* --- BG Image --- */
 .hero-bg {
   position: absolute;
-  inset: 0;
+  inset: -30px;
   z-index: 0;
 }
 
@@ -215,8 +218,8 @@ body:hover .aurora {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 40%;
-  transform: scale(1.15);
+  object-position: center 38%;
+  transform: scale(1.18);
   filter: brightness(0.42) saturate(0.8);
 }
 
@@ -224,28 +227,28 @@ body:hover .aurora {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 45%, transparent 20%, var(--bg) 70%),
-    linear-gradient(to bottom, rgba(6, 6, 8, 0.15) 0%, rgba(6, 6, 8, 0.05) 30%, rgba(6, 6, 8, 0.6) 72%, var(--bg) 100%),
-    linear-gradient(to right, var(--bg) 0%, transparent 15%, transparent 85%, var(--bg) 100%);
+    radial-gradient(ellipse at 50% 42%, transparent 22%, var(--bg) 68%),
+    linear-gradient(to bottom, rgba(6, 6, 8, 0.12) 0%, rgba(6, 6, 8, 0.04) 30%, rgba(6, 6, 8, 0.55) 70%, var(--bg) 100%),
+    linear-gradient(to right, var(--bg) 0%, transparent 14%, transparent 86%, var(--bg) 100%);
 }
 
 /* ============================================
-   HERO CONTENT — clean center stack
+   HERO CONTENT — BIGGER
    ============================================ */
 .hero-content {
   position: relative;
   z-index: 10;
   text-align: center;
-  max-width: 760px;
+  max-width: 860px;
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.4rem;
+  gap: 1.6rem;
 }
 
 .hero-eyebrow {
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   color: var(--cream-dim);
@@ -255,10 +258,10 @@ body:hover .aurora {
 
 .hero-h1 {
   font-family: 'Cabinet Grotesk', sans-serif;
-  font-size: clamp(3.2rem, 7vw, 6rem);
+  font-size: clamp(3.8rem, 8.5vw, 7.5rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
   text-align: center;
 }
 
@@ -283,10 +286,10 @@ body:hover .aurora {
 }
 
 .hero-sub {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.75;
   color: var(--cream-dim);
-  max-width: 420px;
+  max-width: 460px;
   opacity: 0;
   transform: translateY(15px);
 }
@@ -297,17 +300,16 @@ body:hover .aurora {
   font-weight: 500;
 }
 
-/* --- BUTTONS --- */
+/* --- BUTTONS — BIGGER --- */
 .hero-btns {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  margin-top: 0.5rem;
+  gap: 0.9rem;
+  margin-top: 0.6rem;
   opacity: 0;
   transform: translateY(15px);
 }
 
-/* Primary glow */
 .btn-glow {
   position: relative;
   display: inline-flex;
@@ -315,7 +317,7 @@ body:hover .aurora {
   border-radius: 100px;
   text-decoration: none;
   overflow: hidden;
-  padding: 1px;
+  padding: 1.5px;
   cursor: pointer;
 }
 
@@ -345,14 +347,14 @@ body:hover .aurora {
   z-index: 2;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.72rem 1.7rem;
+  gap: 0.45rem;
+  padding: 0.82rem 2rem;
   border-radius: 100px;
   background: var(--bg);
   color: var(--cream);
   font-family: 'Satoshi', sans-serif;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -362,7 +364,7 @@ body:hover .aurora {
 }
 
 .btn-glow:hover {
-  box-shadow: 0 0 35px rgba(201, 148, 74, 0.3), 0 0 70px rgba(201, 148, 74, 0.08);
+  box-shadow: 0 0 40px rgba(201, 148, 74, 0.3), 0 0 80px rgba(201, 148, 74, 0.08);
   transform: translateY(-2px);
 }
 
@@ -374,15 +376,14 @@ body:hover .aurora {
   transform: translateX(3px);
 }
 
-/* Glass button */
 .btn-glass {
   display: inline-flex;
   align-items: center;
-  padding: 0.72rem 1.7rem;
+  padding: 0.82rem 2rem;
   border-radius: 100px;
   font-family: 'Satoshi', sans-serif;
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--cream);
   text-decoration: none;
   border: 1px solid rgba(242, 237, 228, 0.1);
@@ -394,13 +395,13 @@ body:hover .aurora {
 }
 
 .btn-glass:hover {
-  border-color: rgba(242, 237, 228, 0.2);
+  border-color: rgba(242, 237, 228, 0.22);
   background: rgba(242, 237, 228, 0.07);
   transform: translateY(-2px);
 }
 
 /* ============================================
-   ORBIT TAGS — ambient floating indicators
+   ORBIT TAGS — realistic, animated, alive
    ============================================ */
 .orbit-tag {
   position: absolute;
@@ -408,22 +409,55 @@ body:hover .aurora {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.85rem 0.35rem 0.6rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.6rem;
   border-radius: 100px;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--cream-dim);
-  background: rgba(6, 6, 8, 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(242, 237, 228, 0.04);
+  color: var(--cream);
+  background: rgba(10, 10, 14, 0.55);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(242, 237, 228, 0.05);
   opacity: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
 }
 
+.ot-label {
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.ot-meta {
+  font-weight: 400;
+  color: var(--cream-dim);
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+}
+
+.ot-badge {
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 100px;
+}
+
+.ot-badge-done {
+  background: rgba(92, 201, 177, 0.12);
+  color: var(--teal);
+}
+
+.ot-badge-active {
+  background: rgba(155, 138, 219, 0.12);
+  color: var(--violet);
+}
+
+/* Pulse dot */
 .ot-pulse {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--c);
   position: relative;
@@ -447,71 +481,40 @@ body:hover .aurora {
   }
 
   100% {
-    transform: scale(2.5);
+    transform: scale(2.8);
     opacity: 0;
   }
 }
 
+/* Positioning & drifts */
 .ot-1 {
-  top: 32%;
-  left: 8%;
-  animation: drift1 18s ease-in-out infinite;
+  top: 28%;
+  left: 6%;
 }
 
 .ot-2 {
-  top: 24%;
-  right: 9%;
-  animation: drift2 22s ease-in-out infinite;
+  top: 18%;
+  right: 8%;
 }
 
 .ot-3 {
-  bottom: 25%;
-  right: 13%;
-  animation: drift3 20s ease-in-out infinite;
+  bottom: 30%;
+  right: 10%;
 }
 
-@keyframes drift1 {
-
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-
-  33% {
-    transform: translate(16px, -10px);
-  }
-
-  66% {
-    transform: translate(-8px, 6px);
-  }
+.ot-4 {
+  bottom: 20%;
+  left: 5%;
 }
 
-@keyframes drift2 {
-
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-
-  40% {
-    transform: translate(-12px, 8px);
-  }
-
-  70% {
-    transform: translate(10px, -14px);
-  }
+.ot-5 {
+  top: 50%;
+  right: 5%;
 }
 
-@keyframes drift3 {
-
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-
-  50% {
-    transform: translate(8px, -16px);
-  }
+.ot-6 {
+  bottom: 14%;
+  left: 30%;
 }
 
 /* ============================================
@@ -531,21 +534,27 @@ body:hover .aurora {
   }
 
   .nav {
-    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    padding: 0.55rem 0.55rem 0.55rem 1.1rem;
   }
 }
 
 @media (max-width: 640px) {
   .hero-h1 {
-    font-size: clamp(2.5rem, 10vw, 3.5rem);
+    font-size: clamp(2.8rem, 12vw, 4rem);
   }
 
   .hero-sub {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   .hero-btns {
     flex-direction: column;
     gap: 0.6rem;
+  }
+
+  .btn-glow-content,
+  .btn-glass {
+    padding: 0.75rem 1.6rem;
+    font-size: 0.9rem;
   }
 }
