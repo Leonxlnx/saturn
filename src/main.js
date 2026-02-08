@@ -2,7 +2,7 @@ import './style.css'
 import gsap from 'gsap'
 
 // ============================================
-// AURORA — follows mouse with lag
+// AURORA — mouse-following ambient glow
 // ============================================
 function initAurora() {
     const a1 = document.getElementById('aurora')
@@ -20,18 +20,16 @@ function initAurora() {
     })
 
     function tick() {
-        // Primary aurora — follows with smooth lag
-        ax += (mx - ax) * 0.04
-        ay += (my - ay) * 0.04
+        ax += (mx - ax) * 0.035
+        ay += (my - ay) * 0.035
         a1.style.left = ax + 'px'
         a1.style.top = ay + 'px'
 
-        // Secondary aurora — even more lag, offset
-        bx += (mx - bx) * 0.02
-        by += (my - by) * 0.02
+        bx += (mx - bx) * 0.018
+        by += (my - by) * 0.018
         if (a2) {
-            a2.style.left = (bx + 80) + 'px'
-            a2.style.top = (by - 60) + 'px'
+            a2.style.left = (bx + 90) + 'px'
+            a2.style.top = (by - 70) + 'px'
         }
 
         requestAnimationFrame(tick)
@@ -57,84 +55,83 @@ function initMagnetic() {
 }
 
 // ============================================
-// HERO ENTRANCE — cinematic timeline
+// HERO — cinematic Saturn reveal
 // ============================================
 function initHero() {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-    // 1. Image + overlay fade in
-    tl.to('.hero-img', {
-        opacity: 1,
-        scale: 1,
-        duration: 2.5,
-        ease: 'power2.out',
-        delay: 0.2,
+    // 1. Saturn reveal — circular clip-path expands from center
+    tl.to('#hero-img-wrap', {
+        clipPath: 'circle(85% at 50% 45%)',
+        duration: 2.8,
+        ease: 'power2.inOut',
+        delay: 0.4,
     })
 
-    // 2. Orbit decoration
-    tl.to('.orbit-deco', {
+    // Simultaneously: image zooms to rest
+    tl.to('.hero-img', {
+        scale: 1,
+        duration: 3,
+        ease: 'power2.out',
+    }, '<')
+
+    // 2. Nav fades in
+    tl.to('#nav', {
         opacity: 1,
-        duration: 1.5,
-        ease: 'power2.inOut',
-    }, '-=1.8')
+        y: 0,
+        duration: 0.7,
+        // Need to reset the transform to only remove the Y offset
+        clearProps: 'transform',
+        onComplete: () => {
+            // Re-center after animation
+            const nav = document.getElementById('nav')
+            if (nav) nav.style.transform = 'translateX(-50%)'
+        }
+    }, '-=2.0')
 
-    // 3. Nav
-    tl.fromTo('#nav',
-        { y: -20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 },
-        '-=1.2'
-    )
-
-    // 4. Label
-    tl.to('.hero-label', {
+    // 3. Eyebrow
+    tl.to('.hero-eyebrow', {
         opacity: 1,
         y: 0,
         duration: 0.6,
-    }, '-=0.6')
+    }, '-=1.5')
 
-    // 5. Title words
+    // 4. Title words — one by one
     tl.to('.h1-word', {
         opacity: 1,
         y: 0,
-        duration: 0.9,
-        stagger: 0.12,
+        duration: 1,
+        stagger: 0.18,
         ease: 'power4.out',
-    }, '-=0.3')
+    }, '-=1.2')
 
-    // 6. Subtitle
+    // 5. Subtitle
     tl.to('.hero-sub', {
         opacity: 1,
         y: 0,
-        duration: 0.65,
-    }, '-=0.4')
+        duration: 0.7,
+    }, '-=0.5')
 
-    // 7. Buttons
+    // 6. Buttons
     tl.to('.hero-btns', {
         opacity: 1,
         y: 0,
         duration: 0.6,
     }, '-=0.3')
 
-    // 8. Orbit tags
+    // 7. Orbit tags float in
     tl.to('.orbit-tag', {
-        opacity: 0.9,
-        duration: 0.7,
-        stagger: 0.1,
+        opacity: 0.85,
+        duration: 0.8,
+        stagger: 0.12,
     }, '-=0.4')
-
-    // 9. Scroll indicator
-    tl.to('#hero-bottom', {
-        opacity: 0.6,
-        duration: 0.5,
-    }, '-=0.2')
 }
 
 // ============================================
-// PARALLAX — subtle depth
+// PARALLAX
 // ============================================
 function initParallax() {
     const img = document.getElementById('hero-img')
-    const orbits = document.getElementById('orbit-deco')
     const tags = document.querySelectorAll('.orbit-tag')
 
     document.addEventListener('mousemove', e => {
@@ -143,18 +140,8 @@ function initParallax() {
 
         if (img) {
             gsap.to(img, {
-                x: x * -6,
+                x: x * -7,
                 y: y * -4,
-                duration: 2.5,
-                ease: 'power2.out',
-            })
-        }
-
-        if (orbits) {
-            gsap.to(orbits, {
-                x: x * 10,
-                y: y * 6,
-                rotation: x * 1.5,
                 duration: 2.5,
                 ease: 'power2.out',
             })
@@ -162,9 +149,9 @@ function initParallax() {
 
         tags.forEach((tag, i) => {
             gsap.to(tag, {
-                x: x * (10 + i * 5),
-                y: y * (6 + i * 3),
-                duration: 2,
+                x: x * (8 + i * 6),
+                y: y * (5 + i * 4),
+                duration: 2.2,
                 ease: 'power2.out',
             })
         })
