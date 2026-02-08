@@ -196,24 +196,24 @@ function initHero() {
         duration: 0.65,
     }, '-=0.35')
 
-    // 7. Orbit tags
+    // 7. Orbit tags — only AFTER everything else is settled
     tl.call(() => {
         orbitState.tags.forEach((tag, i) => {
-            gsap.fromTo(tag,
-                { opacity: 0, scale: 0.5 },
-                {
-                    opacity: 0.45,
-                    scale: 0.85,
-                    duration: 0.8,
-                    delay: i * 0.07,
-                    ease: 'back.out(1.5)',
-                    onComplete: () => {
-                        if (i === orbitState.count - 1) startOrbitAnimation()
-                    }
+            // Ensure fully hidden first
+            gsap.set(tag, { opacity: 0, scale: 0.6 })
+
+            gsap.to(tag, {
+                opacity: 0.45,
+                scale: 0.85,
+                duration: 1,
+                delay: 0.3 + i * 0.1,
+                ease: 'power2.out',
+                onComplete: () => {
+                    if (i === orbitState.count - 1) startOrbitAnimation()
                 }
-            )
+            })
         })
-    }, null, '-=0.3')
+    })
 }
 
 // ============================================

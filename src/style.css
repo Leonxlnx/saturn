@@ -143,51 +143,8 @@ body:hover .aurora {
   opacity: 0.45;
 }
 
-.nav-divider {
-  width: 1px;
-  height: 14px;
-  background: rgba(242, 237, 228, 0.1);
-}
 
-.nav-status {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: rgba(242, 237, 228, 0.3);
-  letter-spacing: 0.02em;
-}
 
-.nav-status-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--green);
-  position: relative;
-}
-
-.nav-status-dot::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 50%;
-  border: 1px solid var(--green);
-  opacity: 0.4;
-  animation: statusPulse 2s ease-out infinite;
-}
-
-@keyframes statusPulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-
-  100% {
-    transform: scale(2.5);
-    opacity: 0;
-  }
-}
 
 .nav-center {
   display: flex;
