@@ -1,5 +1,8 @@
 import './style.css'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // ============================================
 // AURORA
@@ -242,6 +245,52 @@ function initParallax() {
 }
 
 // ============================================
+// FEATURES — scroll reveal
+// ============================================
+function initFeatures() {
+    // Header reveal
+    gsap.to('.feat-label', {
+        opacity: 1, y: 0, duration: 0.8,
+        scrollTrigger: { trigger: '.feat-header', start: 'top 80%', toggleActions: 'play none none none' }
+    })
+
+    gsap.to('.feat-line', {
+        opacity: 1, y: 0, duration: 0.9, stagger: 0.15,
+        scrollTrigger: { trigger: '.feat-h2', start: 'top 80%', toggleActions: 'play none none none' }
+    })
+
+    gsap.to('.feat-intro', {
+        opacity: 1, y: 0, duration: 0.8, delay: 0.3,
+        scrollTrigger: { trigger: '.feat-intro', start: 'top 85%', toggleActions: 'play none none none' }
+    })
+
+    // Bento cards staggered reveal
+    const cards = document.querySelectorAll('[data-feat]')
+    cards.forEach((card) => {
+        gsap.to(card, {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: card,
+                start: 'top 85%',
+                toggleActions: 'play none none none',
+            }
+        })
+
+        // Dashboard bars: add is-visible class when in view
+        if (card.querySelector('.bc-dashboard')) {
+            ScrollTrigger.create({
+                trigger: card,
+                start: 'top 80%',
+                onEnter: () => card.classList.add('is-visible'),
+            })
+        }
+    })
+}
+
+// ============================================
 // INIT
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -250,4 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initOrbitLayout()
     initHero()
     initParallax()
+    initFeatures()
 })
+
