@@ -164,11 +164,6 @@ function initHero() {
         opacity: 1,
         y: 0,
         duration: 0.7,
-        clearProps: 'transform',
-        onComplete: () => {
-            const nav = document.getElementById('nav')
-            if (nav) nav.style.transform = 'translateX(-50%)'
-        }
     }, '-=2.2')
 
     // 3. Eyebrow
