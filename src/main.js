@@ -278,15 +278,6 @@ function initFeatures() {
                 toggleActions: 'play none none none',
             }
         })
-
-        // Dashboard bars: add is-visible class when in view
-        if (card.querySelector('.bc-dashboard')) {
-            ScrollTrigger.create({
-                trigger: card,
-                start: 'top 80%',
-                onEnter: () => card.classList.add('is-visible'),
-            })
-        }
     })
 }
 
