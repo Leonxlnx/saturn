@@ -80,47 +80,63 @@ body:hover .aurora {
 }
 
 /* ============================================
-   NAV — Editorial, creative, not generic
+   NAV — Floating Glass Pill
    ============================================ */
-.nav {
+.nav-pill {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.9rem 2.2rem;
-  background: rgba(6, 6, 8, 0.3);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(242, 237, 228, 0.04);
+  gap: 0;
+  padding: 0.4rem 0.5rem;
+  border-radius: 100px;
+  background: rgba(12, 12, 16, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(242, 237, 228, 0.06);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
   opacity: 0;
-  transform: translateY(-10px);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.nav-pill:hover {
+  border-color: rgba(242, 237, 228, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.nav-logo {
+/* Logo */
+.np-logo {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--cream);
+  gap: 0.45rem;
   text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 100px;
+  transition: background 0.3s ease;
+}
+
+.np-logo:hover {
+  background: rgba(242, 237, 228, 0.04);
+}
+
+.np-logo-text {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--cream);
   letter-spacing: -0.01em;
 }
 
 .logo-mark {
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .logo-dot {
@@ -128,8 +144,8 @@ body:hover .aurora {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 9px;
-  height: 9px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--ochre-soft), var(--ochre));
 }
@@ -143,83 +159,68 @@ body:hover .aurora {
   opacity: 0.45;
 }
 
+/* Separator */
+.np-sep {
+  width: 1px;
+  height: 16px;
+  background: rgba(242, 237, 228, 0.08);
+  margin: 0 0.2rem;
+  flex-shrink: 0;
+}
 
-
-
-.nav-center {
+/* Links */
+.np-links {
   display: flex;
   align-items: center;
   gap: 0;
 }
 
-.nav-link {
-  font-size: 0.82rem;
+.np-link {
+  font-size: 0.78rem;
   font-weight: 500;
   color: rgba(242, 237, 228, 0.4);
   text-decoration: none;
-  padding: 0.45rem 0.9rem;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav-link span {
+  padding: 0.4rem 0.7rem;
+  border-radius: 100px;
+  transition: color 0.3s ease, background 0.3s ease;
   position: relative;
 }
 
-.nav-link span::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--ochre-soft);
-  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.nav-link:hover {
+.np-link:hover {
   color: var(--cream);
+  background: rgba(242, 237, 228, 0.05);
 }
 
-.nav-link:hover span::after {
-  width: 100%;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.nav-link-ghost {
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: rgba(242, 237, 228, 0.35);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.nav-link-ghost:hover {
-  color: var(--cream);
-}
-
-.nav-btn {
+/* CTA */
+.np-cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.82rem;
+  gap: 0.35rem;
+  font-size: 0.76rem;
   font-weight: 600;
-  color: var(--bg);
-  background: var(--cream);
-  padding: 0.48rem 1.1rem;
-  border-radius: 100px;
+  color: rgba(212, 166, 94, 0.85);
   text-decoration: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 100px;
+  border: 1px solid rgba(201, 148, 74, 0.15);
+  background: rgba(201, 148, 74, 0.05);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.nav-btn:hover {
+.np-cta:hover {
+  color: var(--bg);
+  background: linear-gradient(135deg, var(--ochre-soft), var(--ochre));
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(201, 148, 74, 0.2);
   transform: translateY(-1px);
-  box-shadow: 0 4px 28px rgba(242, 237, 228, 0.18);
+}
+
+.np-cta svg {
+  transition: transform 0.3s ease;
+}
+
+.np-cta:hover svg {
+  transform: translateX(2px);
 }
 
 /* ============================================

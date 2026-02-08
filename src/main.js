@@ -167,11 +167,10 @@ function initHero() {
     }, '<')
 
     // 2. Nav
-    tl.to('#nav', {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-    }, '-=2.2')
+    tl.fromTo('#nav',
+        { y: -10 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        '-=2.2')
 
     // 3. Eyebrow
     tl.to('.hero-eyebrow', {
