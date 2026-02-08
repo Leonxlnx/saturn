@@ -67,8 +67,9 @@ const orbitState = {
     rx: 0,
     ry: 0,
     tilt: -12 * (Math.PI / 180),
-    speed: 0.0008, // faster orbit
+    speed: 0.0008,
     active: false,
+    revealed: false, // tags hidden until entrance completes
 }
 
 function initOrbitLayout() {
@@ -122,7 +123,10 @@ function positionTags() {
         tag.style.left = `${clampX}px`
         tag.style.top = `${clampY}px`
         tag.style.transform = `scale(${scale})`
-        tag.style.opacity = opacity
+        // Only set opacity once tags have been revealed by entrance animation
+        if (orbitState.revealed) {
+            tag.style.opacity = opacity
+        }
         tag.style.zIndex = zIndex
     })
 }
@@ -199,9 +203,6 @@ function initHero() {
     // 7. Orbit tags — only AFTER everything else is settled
     tl.call(() => {
         orbitState.tags.forEach((tag, i) => {
-            // Ensure fully hidden first
-            gsap.set(tag, { opacity: 0, scale: 0.6 })
-
             gsap.to(tag, {
                 opacity: 0.45,
                 scale: 0.85,
@@ -209,7 +210,10 @@ function initHero() {
                 delay: 0.3 + i * 0.1,
                 ease: 'power2.out',
                 onComplete: () => {
-                    if (i === orbitState.count - 1) startOrbitAnimation()
+                    if (i === orbitState.count - 1) {
+                        orbitState.revealed = true
+                        startOrbitAnimation()
+                    }
                 }
             })
         })
