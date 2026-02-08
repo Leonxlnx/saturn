@@ -9,139 +9,77 @@
     content="Saturn is the orbit-based project management tool where teams, tasks, and deadlines revolve around your central workflow." />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&display=swap" rel="stylesheet">
   <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&display=swap" rel="stylesheet">
-  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 
 <body>
 
-  <!-- GRAIN -->
   <div class="grain" aria-hidden="true"></div>
-
-  <!-- CURSOR -->
-  <div class="cursor-ring" id="cursor-ring"></div>
-  <div class="cursor-dot" id="cursor-dot"></div>
-
-  <!-- STARFIELD -->
   <canvas id="starfield"></canvas>
 
-  <!-- NAV — minimal, floating -->
-  <nav class="nav">
+  <!-- NAV -->
+  <nav class="nav" id="nav">
     <a href="#" class="nav-logo">
-      <div class="nav-planet">
-        <div class="np-ring"></div>
+      <div class="logo-mark">
+        <div class="logo-dot"></div>
+        <div class="logo-orbit"></div>
       </div>
       Saturn
     </a>
-    <div class="nav-center">
+    <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#method">Method</a>
       <a href="#pricing">Pricing</a>
     </div>
-    <a href="#" class="nav-cta magnetic" data-magnetic>Start Free →</a>
+    <a href="#" class="nav-cta" data-magnetic>Get Started</a>
   </nav>
 
-  <!-- ===================== HERO ===================== -->
+  <!-- HERO -->
   <section class="hero">
 
-    <!-- Giant background text -->
-    <div class="hero-bg-text" aria-hidden="true">
-      <span class="bg-word" id="bgWord">SATURN</span>
-    </div>
+    <!-- Background word -->
+    <div class="bg-text" aria-hidden="true" id="bg-text">SATURN</div>
 
-    <!-- Saturn planet — centered, large, atmospheric -->
-    <div class="planet-wrap" id="planet-wrap">
+    <!-- Planet — centered -->
+    <div class="planet-container" id="planet-container">
       <div class="planet-glow"></div>
-      <div class="planet-body">
-        <div class="planet-bands"></div>
-        <div class="planet-shine"></div>
-        <div class="planet-shadow"></div>
+      <div class="planet">
+        <div class="planet-surface"></div>
+        <div class="planet-light"></div>
+        <div class="planet-dark"></div>
       </div>
-      <div class="ring-plane">
+      <div class="rings">
         <div class="ring r1"></div>
         <div class="ring r2"></div>
-        <div class="ring r3"></div>
       </div>
-
-      <!-- Orbiting task pills -->
-      <div class="orbit o1">
-        <div class="orbit-pill pill-violet">Design Sprint</div>
+      <!-- Two clean orbit pills -->
+      <div class="orbit orbit-a">
+        <div class="pill pill-a">Design</div>
       </div>
-      <div class="orbit o2">
-        <div class="orbit-pill pill-emerald">Backend API</div>
-      </div>
-      <div class="orbit o3">
-        <div class="orbit-pill pill-rose">QA Review</div>
-      </div>
-      <div class="orbit o4">
-        <div class="orbit-pill pill-sky">Deploy v2.1</div>
+      <div class="orbit orbit-b">
+        <div class="pill pill-b">Ship</div>
       </div>
     </div>
 
-    <!-- Text overlay — scattered editorial -->
-    <div class="hero-layer">
-
-      <!-- Top left corner -->
-      <div class="hero-tag tag-tl" id="tag-tl">
-        <span class="tag-line"></span>
-        <span class="tag-label">Project Management</span>
-        <span class="tag-sub">Reimagined</span>
-      </div>
-
-      <!-- Main headline — centered, huge -->
-      <div class="hero-headline" id="hero-headline">
-        <div class="h-line"><span class="h-word" data-w>Everything</span></div>
-        <div class="h-line h-line-em">
-          <span class="h-word h-revolves" data-w>revolves</span>
-        </div>
-        <div class="h-line"><span class="h-word" data-w>around your</span> <span class="h-word h-accent"
-            data-w>workflow.</span></div>
-      </div>
-
-      <!-- Bottom description — offset placement -->
-      <div class="hero-bottom">
-        <div class="hero-desc" id="hero-desc">
-          <p>The orbit-based tool where teams, tasks, and deadlines naturally gravitate around your central goals. Not
-            lists. Not boards. <em>Orbits.</em></p>
-        </div>
-        <div class="hero-actions" id="hero-actions">
-          <a href="#" class="btn-main magnetic" data-magnetic>
-            <span class="btn-label">Enter Orbit</span>
-            <span class="btn-icon">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M5 10h10M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
-            </span>
-          </a>
-          <a href="#method" class="btn-sec magnetic" data-magnetic>See the method</a>
-        </div>
-      </div>
-
-      <!-- Floating stats — scattered around -->
-      <div class="float-stat stat-1" id="stat-1">
-        <span class="stat-num">2.4k+</span>
-        <span class="stat-label">Teams</span>
-      </div>
-      <div class="float-stat stat-2" id="stat-2">
-        <span class="stat-num">99.9%</span>
-        <span class="stat-label">Uptime</span>
-      </div>
-      <div class="float-stat stat-3" id="stat-3">
-        <span class="stat-num">4.9★</span>
-        <span class="stat-label">Rating</span>
-      </div>
-
-      <!-- Corner accents -->
-      <div class="corner-text corner-br" id="corner-br">
-        <span>Scroll to explore</span>
-        <div class="scroll-bar">
-          <div class="scroll-fill"></div>
-        </div>
-      </div>
-
-      <div class="corner-text corner-bl" id="corner-bl">
-        <span>© 2026</span>
+    <!-- Headline — centered over planet -->
+    <div class="hero-text">
+      <h1 class="headline" id="headline">
+        <span class="hw" data-w>Everything</span>
+        <span class="hw hw-em" data-w>revolves</span>
+        <span class="hw" data-w>around</span>
+        <span class="hw" data-w>your workflow.</span>
+      </h1>
+      <p class="subline" id="subline">Orbit-based project management — where tasks, teams, and deadlines gravitate
+        around your goals. Not lists. <em>Orbits.</em></p>
+      <div class="hero-cta" id="hero-cta">
+        <a href="#" class="btn-main" data-magnetic>
+          <span>Start Free</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3.5 8h9M9 4.5L12.5 8 9 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="#method" class="btn-text" data-magnetic>How it works</a>
       </div>
     </div>
   </section>
