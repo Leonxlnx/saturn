@@ -328,10 +328,17 @@ body:hover .aurora {
 }
 
 .hero-eyebrow {
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--cream-dim);
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(212, 166, 94, 0.6);
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  border: 1px solid rgba(201, 148, 74, 0.1);
+  background: rgba(201, 148, 74, 0.04);
+  backdrop-filter: blur(12px);
   opacity: 0;
   transform: translateY(10px);
 }
@@ -343,6 +350,10 @@ body:hover .aurora {
   line-height: 1.0;
   letter-spacing: -0.045em;
   text-align: center;
+  background: linear-gradient(180deg, rgba(242, 237, 228, 1) 0%, rgba(242, 237, 228, 0.55) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .h1-line {
@@ -361,17 +372,19 @@ body:hover .aurora {
 .h1-em {
   font-style: italic;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--ochre-soft), var(--ochre));
+  background: linear-gradient(135deg, #E8C67A 0%, var(--ochre) 40%, #C08A3E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  filter: drop-shadow(0 2px 12px rgba(201, 148, 74, 0.15));
 }
 
 .hero-sub {
-  font-size: 1.15rem;
-  line-height: 1.75;
-  color: var(--cream-dim);
-  max-width: 480px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(242, 237, 228, 0.38);
+  max-width: 460px;
+  letter-spacing: 0.005em;
   opacity: 0;
   transform: translateY(15px);
 }
